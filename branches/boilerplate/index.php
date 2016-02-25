@@ -12,6 +12,9 @@
     elseif(isset($_REQUEST['entry'])){
         include_once __DIR__.'/blogs/entry.html';
     }
+    elseif(isset($_REQUEST['template'])){
+        include_once __DIR__.'/static/template.html';
+    }
     else{
         include_once __DIR__.'/home.html';
     }
