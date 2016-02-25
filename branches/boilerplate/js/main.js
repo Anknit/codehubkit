@@ -5,6 +5,8 @@ var updateimage =   function(element){
 
 var postArticle =   function(){
     var xmlHttp	=	createBrowserObject();
+    var blogName =  'untitled';
+    blogName    =   window.prompt('Enter name for article');
     var postcontentContainer =   document.getElementsByClassName('blog-container')[0];
     xmlHttp.onreadystatechange	=	function(){
         if(xmlHttp.readyState	==	4 && xmlHttp.status	==	200)
@@ -12,7 +14,7 @@ var postArticle =   function(){
     }; 
 	xmlHttp.open("POST","./request/postarticle.php",true);
     xmlHttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-	xmlHttp.send("data="+encodeURIComponent(postcontentContainer.outerHTML)); 
+	xmlHttp.send("articleName="+encodeURIComponent(blogName)+"&data="+encodeURIComponent(postcontentContainer.outerHTML)); 
 
 };
 function createBrowserObject()
