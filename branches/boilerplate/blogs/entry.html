@@ -1,0 +1,25 @@
+<div class="blog-container component">
+    <div class="blog-title">
+        <h2 class="title-head c-e" contenteditable="true">Title for article</h2>
+        <p class="blog-stat">
+            Published On &nbsp;<span class="stat-date c-e" contenteditable="true">Published Date String</span>
+            By &nbsp;<span class="stat-user c-e" contenteditable="true"> User name to be published</span>
+        </p>
+        <p class="blog-category c-e" contenteditable="true">Category name</p>
+    </div>
+    <div class="blog-content">
+        <div class="content-para-container">
+            <p class="cntent-para c-e" contenteditable="true">
+                Lorem ipsum text for article description
+            </p>
+        </div>
+        <div class="blog-image-container">
+            <img class="blog-image" src="./img/tile.png" />
+            <p class="image-src c-e edit-only" contenteditable="true">Relative Path for image</p>
+            <input type="button" value="update image" onclick="updateimage(this)"/>
+        </div>
+    </div>
+</div>
+<div class="component text-c">
+    <input type="button" value="Post Article" onclick="postArticle()" />
+</div>
