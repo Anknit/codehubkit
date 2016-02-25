@@ -5,14 +5,14 @@ var updateimage =   function(element){
 
 var postArticle =   function(){
     var xmlHttp	=	createBrowserObject();
-    var postcontentContainer =   document.getElementsByClassName('blog-title')[0];
+    var postcontentContainer =   document.getElementsByClassName('blog-container')[0];
     xmlHttp.onreadystatechange	=	function(){
         if(xmlHttp.readyState	==	4 && xmlHttp.status	==	200)
         alert(xmlHttp.responseText);
     }; 
 	xmlHttp.open("POST","./request/postarticle.php",true);
-	xmlHttp.send(JSON.stringify({data:'hi'})); 
-//	xmlHttp.send(JSON.stringify({data:encodeURIComponent(postcontentContainer.outerHTML)})); 
+    xmlHttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	xmlHttp.send("data="+encodeURIComponent(postcontentContainer.outerHTML)); 
 
 };
 function createBrowserObject()
