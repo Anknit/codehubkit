@@ -1,0 +1,96 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="page-header">
+				<h1>
+					HTML Images
+				</h1>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<h3>
+				The Image Tag and the Src Attribute
+			</h3>
+			<p>
+				The <code>&lt;img&gt;</code> tag is empty, which means that it contains attributes only and it has no closing tag. To display an image on a page, you need to use the src attribute. Src stands for &quot;source&quot;. The value of the src attribute is the URL of the image you want to display on your page. The syntax of defining an image:
+			</p>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            This Code
+                        </th>
+                        <th>
+                            Would Display
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <code>
+                                &lt;img src=&quot;graphics/sample.jpg&quot;&gt;
+                            </code>
+                        </td>
+                        <td>
+                            <img src="img/sample.jpg" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                Not only does the source attribute specify what image to use, but where the image is located. The above image, graphics/chef.gif, means that the browser will look for the image name chef.gif in a graphics folder in the same folder as the html document itself.
+            </p>
+            <p>
+                The browser puts the image where the image tag occurs in the document. If you put an image tag between two paragraphs, the browser shows the first paragraph, then the image, and then the second paragraph.
+            </p>
+            <h4>
+                The Alt Attribute
+            </h4>
+            <p>
+                The alt attribute is used to define an alternate text for an image. The value of the alt attribute is author-defined text:
+            </p>
+            <code>
+                &lt;img src=&quot;graphics/chef.gif&quot; alt=&quot;Smiling Happy Chef &quot;&gt;
+            </code>
+            <p>
+                The alt attribute tells the reader what he or she is missing on a page if the browser can't load images. The browser will then display the alternate text instead of the image. It is a good practice to include the alt attribute for each image on a page, to improve the display and usefulness of your document for people who have text-only browsers or use screen readers.
+            </p>
+            <h4>
+                Image Dimensions
+            </h4>
+            <p>
+                When you have an image, the browser usually figures out how big the image is all by itself. If you put in the image dimensions in pixels however, the browser simply reserves a space for the image, then loads the rest of the page. Once the entire page is loads it can go back and fill in the images. Without dimensions, when it runs into an image, the browser has to pause loading the page, load the image, then continue loading the page. The chef image would then be:
+            </p>
+            <code>
+                &lt;img src=&quot;graphics/chef.gif&quot; width=&quot;130&quot; height=&quot;101&quot; alt=&quot;Smiling Happy Chef&quot;&gt;
+            </code>
+            <p>
+                Open the file mypage2.html in your text editor and add code highlighted in bold:
+            </p>
+            <blockquote>
+                <code>
+                    &lt;html&gt;<br />
+                    &lt;head&gt;<br />
+                    &lt;title&gt;My First Webpage&lt;/title&gt;<br />
+                    &lt;/head&gt;<br />
+                    &lt;body&gt;<br />
+                    &lt;h1 align=&quot;center&quot;&gt;My First Web page&lt;/h1&gt;<br />
+                    &lt;p&gt;Welcome to my first webpage. I am writing this page using a text editor and plain old html.&lt;/p&gt;<br />
+                    &lt;p&gt;By learning html, I'll be able to create web pages like a pro....&lt;br&gt;<br />
+                    which I am of course.&lt;/p&gt;<br />
+                    &lt;!-- Who would have guessed how easy this would be :) --&gt;<br />
+                    <b>&lt;p&gt;&lt;img src=&quot;graphics/chef.gif&quot; width=&quot;130&quot; height=&quot;101&quot; alt=&quot;Smiling Happy Chef&quot; align=&quot;center&quot;&gt;&lt;/p&gt;<br />
+                        &lt;p align=&quot;center&quot;&gt;This is my Chef&lt;/p&gt;</b><br />
+                    &lt;/body&gt;<br />
+                    &lt;/html&gt;
+                </code>
+            </blockquote>
+            <p>
+                Save your page as mypage5.html and view it in your browser.
+            </p>
+		</div>
+	</div>
+</div>
