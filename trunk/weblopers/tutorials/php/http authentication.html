@@ -1,0 +1,70 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<h3>
+				What is HTTP Authentication?	
+			</h3>
+			<p>
+				1. HTTP authentication protects the web page from being accessed unless correct username and password is sent 
+			</p>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<h3>
+				First secure page		
+			</h3>
+			<blockquote>
+						<p>
+                            <code>
+                            	&lt;?php<br/>
+								/*<br/>
+								** Define a couple of functions for<br/>
+								** starting and ending an HTML document<br/>
+								*/<br/>
+								function startPage()<br/>
+								{<br/>
+									print(&quot;&lt;html&gt;\n&quot;);<br/>
+									print(&quot;&lt;head&gt;\n&quot;);<br/>
+									print(&quot;&lt;title&gt;Listing 24-1&lt;/title&gt;\n&quot;);<br/>
+									print(&quot;&lt;/head&gt;\n&quot;);<br/>
+									print(&quot;&lt;body&gt;\n&quot;);<br/>
+								}<br/>
+								function endPage()<br/>
+								{<br/>
+									print(&quot;&lt;/body&gt;\n&quot;);<br/>
+									print(&quot;&lt;/html&gt;\n&quot;);<br/>
+								}<br/>
+								/*	<br/>
+								** test for username/password<br/>
+								*/<br/>
+								if(($_SERVER['PHP_AUTH_USER'] == &quot;leon&quot;) AND<br/>
+								($_SERVER['PHP_AUTH_PW'] == &quot;secret&quot;))<br/>
+								{<br/>
+									startPage();<br/>
+									print(&quot;You have logged in successfully!&lt;br&gt;\n&quot;);<br/>
+									endPage();<br/>
+								}	<br/>
+								else{<br/>
+									//Send headers to cause a browser to request<br/>
+									//username and password from user<br/>
+									Prentice Hall PTR : Core PHP Programming, Third Edition<br/>
+									677 / 806	<br/>
+									header(&quot;WWW-Authenticate: &quot; .<br/>
+									&quot;Basic realm=\&quot;Leon's Protected Area\&quot;&quot;);<br/>
+									header(&quot;HTTP/1.0 401 Unauthorized&quot;);<br/>
+									//Show failure text, which browsers usually<br/>
+									//show only after several failed attempts<br/>
+									print(&quot;This page is protected by HTTP &quot; .<br/>
+									&quot;Authentication.&lt;br&gt;\nUse &lt;b&gt;leon&lt;/b&gt; &quot; .<br/>
+									&quot;for the username, and &lt;b&gt;secret&lt;/b&gt; &quot; .<br/>
+									&quot;for the password.&lt;br&gt;\n&quot;);<br/>
+								}<br/>
+								?&gt; <br/>  
+                          </code>
+						</p>
+					</blockquote> 
+		</div>
+	</div>
+</div>

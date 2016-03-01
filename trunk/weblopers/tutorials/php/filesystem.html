@@ -1,0 +1,71 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<h3>
+				Reading and writing to files
+			</h3>
+			<p>
+				To read or write to a file, a stream must be open and then read and write operation can be performed. At the end stream must be closed. 
+			</p>
+		</div>
+	</div>
+
+<div class="row">
+		<div class="col-md-12">
+			<h3>
+				Read a file		
+			</h3>
+			<blockquote>
+			<p>
+			<code>
+				&lt;?php<br/>
+				if(!($myFile = fopen($filename, &quot;r&quot;)))<br/>
+				{<br/>
+				print(&quot;Error:&quot;);<br/>
+				print(&quot;'$filename' could not be read\n&quot;);<br/>
+				exit;<br/>
+					}<br/>
+				while(!feof($myFile))<br/>
+				{<br/>
+				//read a line from the file<br/>
+				$myLine = fgets($myFile, 255);<br/>
+				print(&quot;$myLine&lt;br&gt;\n&quot;);<br/>
+				}<br/>
+				//close the file<br/>
+				fclose($myFile);<br/>
+				?&gt;
+				</code>
+			</p>
+			</blockquote>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<h3>
+				Write to a file		
+			</h3>
+			<blockquote>
+			<p>
+			<code>
+				&lt;?php<br/>
+					// open file for writing<br/>
+					$filename = &quot;/tmp/data.txt&quot;;<br/>
+				if(!($myFile = fopen($filename, &quot;w&quot;)))<br/>
+					{<br/>
+				print(&quot;Error: &quot;);<br/>
+				print(&quot;'$filename' could not be created\n&quot;);<br/>
+				exit;<br/>
+					}<br/>
+				//write some lines to the file<br/>
+				fputs($myFile, &quot;Save this line for later\n&quot;);<br/>
+				fputs($myFile, &quot;Save this line too\n&quot;);<br/>
+				//close the file<br/>
+				fclose($myFile);<br/>
+				?&gt;
+				</code>
+			</p>
+			</blockquote>
+			
+		</div>
+	</div>
+</div>
