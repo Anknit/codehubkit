@@ -15,7 +15,7 @@
         }
         else{
     ?>
-                <h1>Weblopers.com <small>Web developer learning ground</small></h1>
+                <h1>Schoolap <small>Web developer learning ground</small></h1>
     <?php
         }
     ?>
