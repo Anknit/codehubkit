@@ -10,6 +10,7 @@
         <title>Schoolap</title>
         <link rel="stylesheet" type="text/css" href="css/app.min-ca32f0280e.css" />
         <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     </head>
     <body class="container-fluid">
         <div class="row">
