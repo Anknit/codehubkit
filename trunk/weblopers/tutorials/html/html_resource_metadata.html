@@ -1,0 +1,62 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="page-header">
+				<h1>
+					Resource Metadata Management
+				</h1>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<p>
+				Sevaral metadata is associated with the document and theree exist a proper way to manage the metadata associated with the resources 
+			</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+            <h4>document.referrer</h4>
+			<p>
+				Returns the address of the Document from which the user navigated to this one, unless it was blocked or there was no such document, in which case it returns the empty string.
+			</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+            <h4>document.cookie [=value]</h4>
+			<p>
+				Returns the HTTP cookies that apply to the Document. If there are no cookies or cookies can't be applied to this resource, the empty string will be returned.
+                <br/>
+                Can be set, to add a new cookie to the element's set of HTTP cookies.
+                <br/>
+                The cookie attribute represents the cookies of the resource identified by the document's address.
+			</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+            <h4>document.lastModified</h4>
+			<p>
+				Returns the date of the last modification to the document, as reported by the server, in the form "MM/DD/YYYY hh:mm:ss", in the user's local time zone.
+                <br/>
+                If the last modification date is not known, the current time is returned instead.
+                <br/>
+                The Document's source file's last modification date and time must be derived from relevant features of the networking protocols used, e.g. from the value of the HTTP `Last-Modified` header of the document, or from metadata in the file system for local files. If the last modification date and time are not known, the attribute must return the current date and time in the above format.
+			</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+            <h4>document.readyState</h4>
+			<p>
+				Returns "loading" while the Document is loading, "interactive" once it is finished parsing but still loading sub-resources, and "complete" once it has loaded.
+                <br/>
+                The readystatechange event fires on the Document object when this value changes.
+                <br/>
+                Each document has a current document readiness. When a Document object is created, it must have its current document readiness set to the string "loading" if the document is associated with an HTML parser, an XML parser, or an XSLT processor, and to the string "complete" otherwise. Various algorithms during page loading affect this value. When the value is set, the user agent must fire a simple event named readystatechange at the Document object.
+			</p>
+		</div>
+	</div>
+</div>
