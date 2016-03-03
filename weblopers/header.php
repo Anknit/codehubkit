@@ -7,6 +7,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="msapplication-TileColor" content="red">
         <meta name="theme-color" content="red">
+        
+        <meta name="Keywords" content="HTML,HTML api,web worker, websocket,geolocation,tutorials,programming,training,learning,quiz,lessons,references,examples,source code,tips">
+		<meta name="Description" content="Free tutorials and reference manuals with examples for HTML, HTML APIs, HTML API, WEB WORKER, Websocket, geolocation"/>
+        
+        
         <title>Schoolap</title>
         <link rel="stylesheet" type="text/css" href="css/app.min-ca32f0280e.css" />
         <link rel="stylesheet" type="text/css" href="css/style.css" />
