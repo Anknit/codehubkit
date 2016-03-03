@@ -1,0 +1,111 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="page-header">
+				<h1>
+					WebSocket Events
+				</h1>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+	<div class="col-md-12">
+            <h1>
+				Checking for WebSocket support
+			</h1>
+            <blockquote>
+				<p>
+					<code>
+						if(window.WebSocket){
+							alert("Your browser supports WebSocket");
+						}
+						else{
+							alert("Your browser donot support WebSocket");
+						}
+					</code>
+				</p>
+			</blockquote>
+		</div>
+		<div class="col-md-12">
+            <h1>
+				Connecting to server
+			</h1>
+            <blockquote>
+				<p>
+					<code>
+						var client_socket	=	new WebSocket("ws://www.schoolap.com");
+					</code>
+				</p>
+			</blockquote>
+		</div>
+		<div class="col-md-12">
+            <h1>
+				Sending message to server
+			</h1>
+            <blockquote>
+				<p>
+					<code>
+						client_socket.send("My first message");
+					</code>
+				</p>
+			</blockquote>
+		</div>
+		
+		<div class="col-md-12">
+            <h1>
+				Connection open event
+			</h1>
+            <blockquote>
+				<p>
+					<code>
+						client_socket.onopen	=	function(e){
+							alert("Connection is open")
+						}
+					</code>
+				</p>
+			</blockquote>
+		</div>
+		<div class="col-md-12">
+            <h1>
+				Message event
+			</h1>
+            <blockquote>
+				<p>
+					<code>
+						client_socket.onmessage = function(e) {
+							alert(e.data);
+ 						}
+					</code>
+				</p>
+			</blockquote>
+		</div>
+		<div class="col-md-12">
+            <h1>
+				Error event
+			</h1>
+            <blockquote>
+				<p>
+					<code>
+						client_socket.onerror = function(e){
+							alert("Error"+e);
+						};
+					</code>
+				</p>
+			</blockquote>
+		</div>
+		<div class="col-md-12">
+            <h1>
+				Connection close event
+			</h1>
+            <blockquote>
+				<p>
+					<code>
+						client_socket.onclose	=	function(e){
+							alert("connection closed"+e);
+ 						}
+					</code>
+				</p>
+			</blockquote>
+		</div>
+	</div>
+</div>
