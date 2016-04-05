@@ -2,7 +2,8 @@ html{
     font-size:13px;
 }
 body{
-    background-color: #f2f2f2;
+    background-color: #f6f6f6;
+    font-family:Product Sans, Arial, sans-serif;
 }
 .card-deck-wrapper{
     margin-bottom: 20px;
