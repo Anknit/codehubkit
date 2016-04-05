@@ -1,0 +1,55 @@
+html{
+    font-size:13px;
+}
+body{
+    background-color: #f2f2f2;
+}
+.card-deck-wrapper{
+    margin-bottom: 20px;
+}
+.card-deck .card {
+    box-shadow: 0px 3px 10px #ccc;
+}
+nav{
+    font-size: 15px;
+}
+a.link-plain {
+    color: inherit;
+}
+
+.brand-name {
+    padding: 20px 0px 20px 40px;
+}
+
+.nav-link {
+    padding: 10px 20px;
+}
+
+.navbar {
+    padding: 10px 0px 10px 20px;
+}
+.header-wrap{
+    background-color: #fff;
+    box-shadow: 0 0 8px 0 rgba(0,0,0,.3);
+}
+.page-banner{
+    position: relative;
+}
+.page-banner-text{
+    padding: 80px 10% 80px 10%;
+}
+.page-banner-image{
+    position: absolute;
+    background-image: url(../images/banner.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    right: 0px;
+    bottom: 0px;
+    height: 100%;
+}
+@media screen and (max-width:544px){
+    .page-banner-image{
+        position: relative;
+        height: 220px;
+    }
+}
