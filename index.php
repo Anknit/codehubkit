@@ -8,6 +8,7 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
         <link rel="stylesheet" href="css/index.css">
+        <link href="https://fonts.googleapis.com/css?family=Product+Sans" rel="stylesheet" type="text/css">
     </head>
     <body>
         <div class="container-fluid">
@@ -17,7 +18,7 @@
                         <div class="col-md-12">
                             <div class="brand-name">
                                 <a class="link-plain">
-                                    Medical Billing
+                                    <h2>Medical Billing</h2>
                                 </a>
                             </div>
                         </div>
@@ -42,49 +43,33 @@
             <div class="row page-banner">
                 <div class="col-xs-12 col-sm-6 page-banner-text">
                     <h3 class="display-4">Medical Billing</h3>
-                    <p class="lead">If you are not free to handle your medical billing, time to outsource your medical billing to us.</p>
+                    <p class="lead" style="padding-top:20px;">If you are not free to handle your medical billing, time to outsource your medical billing to us.</p>
                 </div>
                 <div class="col-xs-12 col-sm-6 page-banner-image">
                 </div>
             </div>
+            <div class="row bg-success" style="padding:40px 20px">
+                <div class="col-md-8 col-md-offset-2">
+                    <h4 class="display-3 text-xs-center">Full Billing Service</h4>
+                    <p>Aim to make stress free doctor</p>
+                    <p class="lead">
+                        Everybody wants the worth for their service, when claim go unpaid, how you feel? Every service provide by you have value, even small of amount of unpaid claims can make a lots of money. When your revenue increased, you will feel great to pay us.
+                        <br />
+                        Our professional have many year of experience and use to get your claim paid. 
+                        <br />
+                        Our report always available when you need. You have access to check your claim status and more. 
+                        <br />
+                        Support available through phone, email, chat etc.
+                    </p>
+                </div>
+            </div>
         </div>
-<!--
-    <div class="jumbotron">
-      <h1 class="display-3">Medical Billing!</h1>
-      <p class="lead">IF U ARE NOT FREE TO HANDLE YOUR MEDICAL BILLING, TIME TO OUTSOURCE YOUR MEDICAL BILLING TO US.</p>
-      <hr class="m-y-2">
-      <p class="lead">
-        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-      </p>
-    </div> 
--->
-<!--
-      <nav class="navbar navbar-dark navbar-full bg-success">
-          <div class="nav navbar-nav">
-              <a class="navbar-brand">Medical</a>
-              <a class="nav-item nav-link" href="#">Features</a>
-              <a class="nav-item nav-link" href="#">Pricing</a>
-              <a class="nav-item nav-link" href="#">Contact</a>
-          </div>
-      </nav>
--->
       <div class="container">
         <div class="row">
           <div class="col-xs-12">
             <div class="card">
               <img class="img-fluid" src="images/card1.jpg" data-src="images/card1.jpg" alt="Card image cap" style="margin:auto">
               <div class="card-block">
-                <h4 class="card-title">Full Billing Service</h4>
-                <p class="card-text text-muted">Aim to make stress free doctor</p>
-                <p class="card-text">
-                    Everybody wants the worth for their service, when claim go unpaid, how you feel? Every service provide by you have value, even small of amount of unpaid claims can make a lots of money. When your revenue increased, you will feel great to pay us.
-                    <br />
-                    Our professional have many year of experience and use to get your claim paid. 
-                    <br />
-                    Our report always available when you need. You have access to check your claim status and more. 
-                    <br />
-                    Support available through phone, email, chat etc.
-                </p>
               </div>
             </div>
               <div class="card">
