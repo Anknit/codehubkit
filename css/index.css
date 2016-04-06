@@ -60,7 +60,7 @@ a.link-plain {
     padding:80px 40px;
 }
 .list-row .hover-card{
-    height:150px;
+    height:200px;
     margin-top:40px;
     color:#666;
 }
@@ -97,6 +97,17 @@ a.link-plain {
     display: block;
     padding-left:10px;
 }
+i.material-icons {
+    display: table;
+    font-size: 3rem;
+    text-align: center;
+    margin: auto;
+    background: #00b0ff;
+    color: #fff;
+    margin-bottom: 20px;
+    box-shadow: 3px 3px 5px #ccc;
+}
+
 @media screen and (max-width:544px){
     .page-banner-image{
         position: relative;
