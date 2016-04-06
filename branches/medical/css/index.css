@@ -1,6 +1,7 @@
 body{
     background-color: #f6f6f6;
     font-family:Product Sans, Arial, sans-serif;
+    transition: all linear 0.5s; 
 }
 .card-deck-wrapper{
     margin-bottom: 20px;
@@ -106,6 +107,14 @@ i.material-icons {
     color: #fff;
     margin-bottom: 20px;
     box-shadow: 3px 3px 5px #ccc;
+}
+.icon-round {
+    border-radius: 100%;
+}
+i#down-arrow {
+    position: absolute;
+    right: -4%;
+    z-index: 1;
 }
 
 @media screen and (max-width:544px){

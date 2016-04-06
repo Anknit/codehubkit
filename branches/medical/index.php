@@ -45,6 +45,7 @@
                 <div class="col-xs-12 col-sm-4 col-sm-offset-2 page-banner-text">
                     <h3 class="display-4">Medical Billing</h3>
                     <p class="lead" style="padding-top:20px;">If you are not free to handle your medical billing, time to outsource your medical billing to us.</p>
+                    <i class="material-icons icon-round" id="down-arrow" onclick="window.document.body.scrollTop=300">keyboard_arrow_down</i>
                 </div>
                 <div class="col-xs-12 col-sm-6 page-banner-image">
                 </div>
