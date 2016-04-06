@@ -101,6 +101,7 @@
                         <div class="table-child">
                             <div class="hover-card">
                                 <p class="lead text-muted m-x-2 p-a-1 white-back">
+                                    <i class="material-icons">trending_up</i>
                                     LESS STRESS, MORE FOCUS, INCREASE REVENUE, FREE UP OFFICE SPACE
                                 </p>
                             </div>
@@ -140,10 +141,11 @@
                         <h4 class="display-4">Our Services</h4>
                         <p class="lead">We offer a wide range of service with provider satisfaction</p>
                     </div>
-                    <div class="row list-row service">
+                    <div class="row list-row service text-xs-center">
                         <div class=" col-xs-12 col-sm-4">
                             <div class="hover-card">
                                 <p class="lead p-a-2">
+                                    <i class="material-icons">perm_identity</i>
                                     PROVIDER CREDENTIALING
                                 </p>
                             </div>
@@ -151,63 +153,72 @@
                         <div class=" col-xs-12 col-sm-4">
                             <div class="hover-card">
                                 <p class="lead p-a-2">
-                                ELIGIBILITY AND INSURANCE VERIFICATION
+                                    <i class="material-icons">verified_user</i>
+                                    ELIGIBILITY AND INSURANCE VERIFICATION
                                 </p>
                             </div>
                         </div>
                         <div class=" col-xs-12 col-sm-4">
                             <div class="hover-card">
                                 <p class="lead p-a-2">
-                                AUTHORIZATION TRACKING
+                                    <i class="material-icons">track_changes</i>
+                                    AUTHORIZATION TRACKING
                                 </p>
                             </div>
                         </div>
                         <div class=" col-xs-12 col-sm-4">
                             <div class="hover-card">
                                 <p class="lead p-a-2">
-                                MEDICAL TRANSCRIPTION
+                                    <i class="material-icons">assignment</i>
+                                    MEDICAL TRANSCRIPTION
                                 </p>
                             </div>
                         </div>
                         <div class=" col-xs-12 col-sm-4">
                             <div class="hover-card">
                                 <p class="lead p-a-2">
-                                CHARGE POSTING
+                                    <i class="material-icons">local_post_office</i>
+                                    CHARGE POSTING
                                 </p>
                             </div>
                         </div>
                         <div class=" col-xs-12 col-sm-4">
                             <div class="hover-card">
                                 <p class="lead p-a-2">
-                                MEDICAL CODING
+                                    <i class="material-icons">local_hospital</i>
+                                    MEDICAL CODING
                                 </p>
                             </div>
                         </div>
                         <div class=" col-xs-12 col-sm-4">
                             <div class="hover-card">
                                 <p class="lead p-a-2">
-                                ELECTRONIC AND PAPER CLAIMS
+                                    <i class="material-icons">insert_drive_file</i>
+                                    ELECTRONIC AND PAPER CLAIMS
                                 </p>
                             </div>
                         </div>
                         <div class=" col-xs-12 col-sm-4">
                             <div class="hover-card">
                                 <p class="lead p-a-2">
-                                A/R FOLLOW-UP
+                                    <i class="material-icons">timeline</i>
+                                    A/R FOLLOW-UP
                                 </p>
                             </div>
                         </div>
                         <div class=" col-xs-12 col-sm-4">
                             <div class="hover-card">
                                 <p class="lead p-a-2">
-                                DENIAL MANAGEMENT
+                                    <i class="material-icons">layers_clear</i>
+                                    DENIAL MANAGEMENT
                                 </p>
                             </div>
                         </div>
                         <div class=" col-xs-12 col-sm-4">
                             <div class="hover-card">
                                 <p class="lead p-a-2">
-                                CLAIM STATUS CHECK
+                                    <i class="material-icons">spellcheck</i>
+                                    CLAIM STATUS CHECK
                                 </p>
                             </div>
                         </div>
@@ -220,6 +231,7 @@
                         <div class="table-child">
                             <div class="hover-card">
                                 <p class="lead text-muted text-justify m-x-2 p-a-2 white-back">
+                                    <i class="material-icons">build</i>
                                     We also work on Projects as per Doctors need.
                                 </p>
                             </div>
@@ -227,6 +239,7 @@
                         <div class="table-child">
                             <div class="hover-card">
                                 <p class="lead text-muted text-justify m-x-2 p-a-2 white-back">
+                                    <i class="material-icons">assessment</i>
                                     We provide Weekly claims reporting and Monthly A/R reporting.
                                 </p>
                             </div>
