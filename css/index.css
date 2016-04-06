@@ -1,6 +1,3 @@
-html{
-    font-size:13px;
-}
 body{
     background-color: #f6f6f6;
     font-family:Product Sans, Arial, sans-serif;
@@ -17,13 +14,15 @@ nav{
 a.link-plain {
     color: inherit;
 }
-
+.white-back{
+    background: #fff;
+}
 .brand-name {
-    padding: 20px 0px 20px 40px;
+    padding: 20px 0px 0px 40px;
 }
 
 .nav-link {
-    padding: 10px 20px;
+    margin-left:20px;
 }
 
 .navbar {
@@ -37,7 +36,16 @@ a.link-plain {
     position: relative;
 }
 .page-banner-text{
-    padding: 80px 10% 80px 10%;
+    padding: 80px 5% 80px 5%;
+}
+.table-wrap{
+    display:table;
+}
+.table-child{
+    display: table-cell;
+    float:none;
+    width:1%;
+    vertical-align:top;
 }
 .page-banner-image{
     position: absolute;
@@ -47,6 +55,47 @@ a.link-plain {
     right: 0px;
     bottom: 0px;
     height: 100%;
+}
+.desc-well{
+    padding:80px 40px;
+}
+.list-row .hover-card{
+    height:150px;
+    margin-top:40px;
+    color:#666;
+}
+.list-row .hover-card > *{
+    height:100%;
+    padding:10px;
+}
+.list-row.advantage .hover-card > *,.list-row.security .hover-card > *{
+    background: #fff;
+}
+.list-row.service .hover-card > *,.list-row.engagement .hover-card > *{
+    background: #f6f6f6 !important;
+}
+
+.hover-card > *{
+    transition: box-shadow 300ms ease-in;
+}
+.hover-card:hover > *{
+    box-shadow: 0 5px 10px rgba(0,0,0,.15);    
+}
+.footer-row{
+    background: #444;
+    color:#999;
+    padding:20px 0px;
+}
+.footer-row a{
+    color:inherit;
+}
+.footer-row a:hover{
+    color:#fff;
+}
+.footer-link-list li{
+    float:left;
+    display: block;
+    padding-left:10px;
 }
 @media screen and (max-width:544px){
     .page-banner-image{
