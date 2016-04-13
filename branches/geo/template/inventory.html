@@ -1,0 +1,101 @@
+<div class="template-container">
+    <h3>
+        Add Products
+    </h3>
+    <form accept-charset="utf-8" class="inventory-form" id="inventory-add-form" method="post">
+        <div class="form-group">
+            <label for="pro_name">Product Name</label>
+            <input placeholder="Name of the item" type="text" required autocomplete="on" accept="text/plain" autofocus id="pro_name" class="form-input" maxlength="50" name="pro_name">
+        </div>
+        <div class="form-group">
+            <label for="pro_desc">Description</label>
+            <textarea placeholder="Provide a brief description" required autocomplete="off" accept="text/plain" id="pro_desc" rows="2" class="form-input" maxlength="250" name="pro_desc"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="pro_publisher">Publisher</label>
+            <input placeholder="Publisher" type="text" required autocomplete="on" accept="text/plain" id="pro_publisher" class="form-input" maxlength="50" name="pro_publisher">
+        </div>
+        <div class="form-group">
+            <label for="pro_author">Author</label>
+            <input placeholder="Name of author" type="text" required accept="text/plain" id="pro_author" class="form-input" maxlength="100" name="pro_author">
+        </div>
+        <div class="form-group">
+            <label for="pro_edition">Edition</label>
+            <input placeholder="Edition of item" type="text" accept="text/plain" id="pro_edition" class="form-input" maxlength="50" name="pro_edition">
+        </div>
+        <div class="form-group">
+            <label for="pro_copyright">Copyrights</label>
+            <input placeholder="Copyright details" type="text" accept="text/plain" id="pro_copyright" class="form-input" maxlength="200" name="pro_copyright">
+        </div>
+        <div class="form-group">
+            <label for="pro_language">Language</label>
+            <select id="pro_language" class="form-input" name="pro_language">
+                <option value="English" selected>English</option>
+                <option value="Hindi">Hindi</option>
+                <option value="German">German</option>
+                <option value="French">French</option>
+                <option value="Italian">Italian</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="pro_image">Product Image</label>
+            <input type="file" required accept="image/jpeg" id="pro_image" class="form-input" name="pro_image" multiple max="5">
+        </div>
+        <div class="form-group">
+            <label for="pro_quant">Quantity (nos.)</label>
+            <input type="number" required accept="text/plain" id="pro_quant" class="form-input" max="10" min="1" name="pro_quant" value="1">
+            <label for="pro_price">Price</label>
+            <input type="number" required accept="text/plain" id="pro_price" class="form-input" max="10000" min="1" name="pro_price">
+        </div>
+        <div class="form-group">
+            <label for="pro_isbn_type">ISBN</label>
+            <div class="input-group">
+                <div class="radio-control">
+                    <span class="inner-label">ISBN-10</span><input type="radio" name="pro_isbn_type" checked value="isbn_10" />
+                    <span class="inner-label">ISBN-13</span><input type="radio" name="pro_isbn_type" value="isbn_13"/>
+                </div>
+                <input placeholder="Enter 10 digit ISBN" type="text" accept="text/plain" id="pro_isbn_10" class="form-input" maxlength="10" name="isbn_num"> 
+                <input placeholder="Enter 13 digit ISBN" type="text" accept="text/plain" id="pro_isbn_13" class="form-input" maxlength="13" name="isbn_num"> 
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="pro_category">Category</label>
+            <select id="pro_category" required class="form-input" name="pro_category" multiple>
+                <option value="Literature">Literature</option>
+                <option value="Fiction">Fiction</option>
+                <option value="Art">Art</option>
+                <option value="Science">Science</option>
+                <option value="General">General</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="pro_condition">Product condition</label>
+            <div class="input-group">
+                <div class="radio-control">
+                    <span class="inner-label">Very Good</span><input type="radio" name="pro_condition" value="very_good" />
+                    <span class="inner-label">Good</span><input type="radio" name="pro_condition" checked value="good" />
+                    <span class="inner-label">Average</span><input type="radio" name="pro_condition" value="average" />
+                    <span class="inner-label">Managable</span><input type="radio" name="pro_condition" value="managable" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="checkbox-control">
+                <label for="pro_refund_clause">
+                    <input type="checkbox" checked id="pro_refund_clause" name="pro_refund_clause">
+                    I am ready to take back the book in case of return by the buyer as per the return clause.
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="checkbox-control">
+                <label for="pro_adult_clause">
+                    <input type="checkbox" checked id="pro_adult_clause" name="pro_adult_clause">
+                    The content of this item is suitable for children reading (&lt; 18 years).
+                </label>
+            </div>
+        </div>
+        <button type="button" class="form-button btn-success">Add</button>
+        <button type="button" class="form-button">Cancel</button>
+    </form>
+</div>
