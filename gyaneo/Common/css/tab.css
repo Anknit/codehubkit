@@ -1,0 +1,151 @@
+/*
+Project Name       	: 	Pulsar - Content Verification System
+File Or Class Name 	: 	tab.css
+Description			: 	
+Copyright          	:	Copyright  2009 - 2014 Venera Technologies.
+*/
+
+/*--------------------------------------------------
+  REQUIRED to hide the non-active tab content.
+  But do not hide them in the print stylesheet!
+  --------------------------------------------------*/
+.tabberlive .tabbertabhide {
+ display:none;
+}
+
+/*--------------------------------------------------
+  .tabber = before the tabber interface is set up
+  .tabberlive = after the tabber interface is set up
+  --------------------------------------------------*/
+.tabber {
+}
+
+.tabberlive {
+	
+ margin-top:1em;
+/* background: #FFFFFF;
+ */
+}
+
+/*--------------------------------------------------
+  ul.tabbernav = the tab navigation list
+  li.tabberactive = the active tab
+  --------------------------------------------------*/
+ul.tabbernav
+{
+ margin:0;
+ padding: 4px 0;
+ border-bottom: 1px solid #e8e8e8;
+ font: bold 12px Verdana, sans-serif;
+}
+
+ul.tabbernav li
+{
+ list-style: none;
+ margin: 0;
+ display: inline;
+	background:url("../Common/images/tab_right.gif") no-repeat right top;
+	padding:5px 0px;
+ 
+}
+
+ul.tabbernav li.TabLiDisabled
+{
+ list-style: none;
+ margin: 0;
+ display: inline;
+	background:url("../Common/images/tab_right.gif") no-repeat right top;
+	padding:5px 0px;
+ 
+}
+
+ul.tabbernav li a
+{
+/* padding: 3px 0.5em;*/
+/* margin-left: 3px;*/
+/* border: 1px solid #778;*/
+/* border-bottom: none;
+/* background: #F1F4FA;*/
+/* text-decoration: none;*/
+	background:url("../Common/images/tab_left.gif") no-repeat left top;
+	padding:5px 15px;
+}
+
+ul.tabbernav li a:link { color: #222222; }
+ul.tabbernav li a:visited { color: #667; }
+
+ul.tabbernav li a.TabAdisabled
+{
+	background:url("../Common/images/tab_left.gif") no-repeat left top;
+	padding:5px 15px;
+	color: #909090;
+}
+
+ul.tabbernav li:hover
+{
+/*	background:url("../Common/images/norm_right_hover.gif") no-repeat right top;
+/*	 color: #000;
+ background: #FFFFFF;
+ border-color: #227;*/
+}
+
+ul.tabbernav li a:hover
+{
+/*	background:url("../Common/images/norm_left_hover.gif") no-repeat left top;
+/*	 color: #000;
+ background: #FFFFFF;
+ border-color: #227;*/
+}
+
+ul.tabbernav li.tabberactive
+{
+	background:url("../Common/images/tab_selected_right.gif") no-repeat right top;
+/* background-color: #fff;
+ border-bottom: 1px solid #fff;*/
+}
+
+ul.tabbernav li.tabberactive a
+{
+	background:url("../Common/images/tab_selected_left.gif") no-repeat left top;
+/* background-color: #fff;
+ border-bottom: 1px solid #fff;*/
+}
+
+ul.tabbernav li.tabberactive a:hover
+{
+/* color: #000;
+ background: white;
+ border-bottom: 1px solid white;*/
+}
+
+/*--------------------------------------------------
+  .tabbertab = the tab content
+  Add style only after the tabber interface is set up (.tabberlive)
+  --------------------------------------------------*/
+.tabberlive .tabbertab {
+ padding:0px;
+ border:1px solid #aaa;
+ border-right:0;
+ border-top:0;
+ border-bottom:0;
+ border-left:0; 
+}
+
+/* If desired, hide the heading since a heading is provided by the tab */
+.tabberlive .tabbertab h2 {
+ display:none;
+}
+.tabberlive .tabbertab h3 {
+ display:none;
+}
+
+/* Example of using an ID to set different styles for the tabs on the page */
+.tabberlive#tab1 {
+}
+.tabberlive#tab2 {
+}
+.tabberlive#tab2 .tabbertab {
+ height:200px;
+ overflow:auto;
+ 
+}

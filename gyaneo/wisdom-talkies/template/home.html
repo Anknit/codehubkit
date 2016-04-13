@@ -1,0 +1,50 @@
+<div id="home" class="container-fluid">
+    <div id="categories" class="row">
+        <div class="col-sm-4 col-md-3 col-xs-6 categorySection ng-cloak" data-ng-repeat="catItem in categoryItems">
+            <div class="categoryDesc row text-center" data-catid="{{catItem['attr']['data-catid']}}" data-vidid="{{catItem['attr']['data-vidId']}}">
+                <a data-ng-href="search/category={{catItem['attr']['data-catid']}}">{{catItem.label}}</a>
+            </div>
+            <div class="cat-thumb-item">
+                <div class="thumbnail cat-thumbnail" data-vidid="{{catItem['attr']['data-vidId']}}" data-catid="{{catItem['attr']['data-catid']}}">
+                    <div class="cat-thumb" data-catname="{{catItem.label}}" data-shared="{{catItem.shared.split(' ')[0]}}" href="#">
+                        <a class="play-icon" href="view/category={{catItem['attr']['data-catid']}}&videoId={{catItem['attr']['data-vidId']}}&contentsrc={{catItem['url'] | videoSource}}&sourcevidid={{catItem.videoid}}"></a>
+                        <img onload="CheckImgErr(this);" onerror="CheckImgErr(this);" data-ng-src="{{catItem.tnurl}}" alt="">
+                    </div>
+                    <div class="caption">
+                        <a data-ng-href="view/category={{catItem['attr']['data-catid']}}&videoId={{catItem['attr']['data-vidId']}}&contentsrc={{catItem['url'] | videoSource}}&sourcevidid={{catItem.videoid}}">
+                            <div class="cat-thumb-title" data-toggle="tooltip" data-placement="bottom" data-title="{{catItem.title}}" >{{catItem.title}}</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 hide" id="aboutWT">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="text-center" id="aboutTitle">
+                <h1>
+                    About WisdomTalkies &nbsp;&nbsp;&nbsp;
+                    <button type="button" class="btn btn-info" data-ng-click="goToMainContent()">Back To Main Content</button>
+                </h1>
+            </div>
+        </div>
+    </div>
+    <p class="row">
+        <div class="col-md-6 about-content text-justify">
+            Knowledge or Wisdom not necessarily has to come from a formal course or a text book. There is a vast amount of wisdom spread across the world,<i> be it lighting up the charcoal fire for a barbecue</i> or <i>getting your backhand right at tennis</i> or <i>learning nuances of playing the right chord on your guitar</i>. We feel these little pearls of wisdom can have profound effect in our daily life and makes us wiser. WisdomTalkies is driven by this simple idea of sharing and preserving community wisdom, captured in form of videos and curating(collecting) them in a structured form. If you too believe in this idea. then be a part of the mission to preserve community wisdom and make the world a better place to live.
+        </div>
+        <div class="col-md-6 about-content text-justify">
+            The sources of knowledge are uncountable. What is accounted for in formal education and textbooks, and now even the internet, is but a fraction of what exists in the collective cognition of the world we inhabit. Bits of knowledge are dispersed all around us, be it <i>the difference between a good sponge cake and one that is just the best</i>, or <i>getting the slant of the wrist just right for that perfect backhand stroke</i>, or <i>learning the nuances of playing the right chords on the guitar that sound just great</i>. This collective wisdom resides in the minds of the millions that inhabit this world, and some of it is endangered to be lost forever as the world trundles on, at a fast pace. That would indeed be sad.
+        </div>
+        <div class="col-md-12 about-content text-center"><strong>
+            <i>WisdomTalkies is all about preserving this Wisdom and making the world happier and smarter</i></strong>
+        </div>
+    </p>
+    <div class="row" data-ng-if="!l_ch">
+        <div class="col-md-12 text-center">
+            <button class="btn btn-success about-signup" data-toggle="modal" data-target="#sign-in-container">Sign-Up</button>
+        </div>
+    </div>
+</div>
