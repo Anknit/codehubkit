@@ -1,0 +1,534 @@
+<div id="view" class="col-md-12 col-sm-12">
+    <div class="row">
+        <div id="viewcenter"  class="col-md-9 col-md-push-3 col-sm-12">
+            <div class="row">
+                <div class="col-md-8">
+                    <div id="contentplayer" class="embed-responsive embed-responsive-16by9">
+                        <youtube-video video-id="playerVideoId" player="vidPlayerObject" id="ytplayerdiv"></youtube-video>
+                    </div>
+                </div>
+                <input data-toggle="tooltip" data-title="Topicwise playback" data-ng-class="{'active-option':playusing=='topics'}" type="button" value="Topics" class="btn btn-default switchButton" data-ng-if="currentVideoObject.topicinfo.length > 0" data-ng-click="playContentThroughTopics()"/>
+                <input data-toggle="tooltip" data-title="	Play using bookmarks" data-ng-class="{'active-option':playusing=='bookmarks'}" type="button" value="Bookmarks" class="btn btn-default switchButton" data-ng-if="currentVideoObject.bookmarkTopics.length > 0 && urlParams.indexOf('&bookmarkId') == -1" data-ng-click="playContentThroughBookmark()"/>
+                <input data-toggle="tooltip" data-title="Normal Playback" data-ng-class="{'active-option':playusing=='normal'}" type="button" value="Normal" class="btn btn-default switchButton" data-ng-click="playContentNormal()" data-ng-if="urlParams.indexOf('%26bookmarkId') == -1"/>
+                <hr class="topics-separation">
+                <div id="viewtopics" class="playListContainer col-md-4 section-cover" data-ng-if="playusing=='topics'">
+                    <div class="topicshead hide">Topics</div>
+                    <div class="topiclist-container row">
+                        <ul class="list-unstyled">
+                            <li data-ng-repeat="topic in currentVideoObject.topicinfo" data-topic-index="{{$index}}" data-ng-click="playVideoSegment($event)" data-ng-class="{'active':$first}">
+                                <div class="topic-name">
+                                    {{topic.topic}}
+                                </div>
+                                <div class="topic-start-time">
+                                    {{topic.start_time | secondsToDateTime | date:'HH:mm:ss'}}
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="recommendContainer" class="col-md-4 section-cover" data-ng-if="playusing=='normal' && currentVideoObject.topicinfo.length == 0">
+<!--
+                    <input type="button" value="Play Using My Bookmarks" class="btn btn-default btn-block" data-ng-if="currentVideoObject.bookmarkTopics.length > 0" />
+-->
+                    <div class="recommendPage row" id="recommPage_1">
+                        <div class="col-md-12 recommPageInfo">
+                            <span>*This content is not yet curated !</span>
+                        </div>
+                        <table>
+                            <tr>
+                                <td>
+                                    <div>
+                                        <h4>
+                                            <strong>This video solves your problem ?</strong>
+                                        </h4>
+                                        <h4>
+                                            <span>Help others find it easily.</span>
+                                        </h4>
+                                        <button class="btn btn-success btn-large btn-block" id="recommendCurationHomeBtn" data-ng-click="showVideoRecommendInput()">
+                                            <h4 class="text-center">Recommend video for <br/> curation</h4>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="recommendPage row" id="recommPage_2">
+                        <div class="col-md-12 recommPageInfo">
+                        </div>
+                        <table>
+                            <tr>
+                                <td>
+                                    <form id="recommendation-input-form">
+                                        <div class="form-group">
+                                            <label for="recommendcategoryInput">Category</label>
+                                            <select class="form-control" id="recommendcategoryInput" data-ng-model="recommendCat" data-ng-init="recommendCat='1'">
+                                                <option value="0" data-ng-selected="true" class="ng-binding ng-scope">Other</option>
+                                                <option data-ng-repeat="category in mainCatObject" value="{{category}}" >{{category | categoryName}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" required class="form-control" id="otherCategoryInput" placeholder="Type new category name" data-ng-show="recommendCat == 0">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recommendDescription">What problem was solved ?</label>
+                                            <textarea rows="1" class="form-control" id="recommendDescription"></textarea>
+                                        </div>
+                                        <div id="captchaBlock" class="form-group">
+                                            <div id="recommendgrecaptcha"></div>
+                                            <script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaCallback&render=explicit" async defer></script>
+                                            
+<!--
+                                            <img style="width:80px" src="./wisdom-talkies/php/appdata.php?captcha=true&rand="+Math.random()*1000 alt='captcha' id="recomCaptcha"/>
+                                            <input type="text" id="recomCaptchaText" class="captchaInput"/>
+                                            <div><a class="c_p" onclick="refreshCaptcha('#recomCaptcha');"><span class="glyphicon glyphicon-refresh"></span>Refresh</a></div>
+-->
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="button" class="pull-right btn btn-primary text-right" id="submitRecommBtn" data-ng-click="submitContentRecommendation()">Submit</button>
+                                        </div>
+                                    </form>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="col-md-12" id="recommPageError">
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="recommendPage row" id="recommPage_3">
+                        <div class="col-md-12 recommPageInfo">
+                            <span>We value your association</span>
+                        </div>
+                        <table>
+                            <tr>
+                                <td>
+                                    <div>
+                                        <h2 class="text-center">
+                                            <span>Thank you <br/> for the recommendation</span>
+                                        </h2>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div id="viewbookmarks" class="playListContainer col-md-4 section-cover" data-ng-if="playusing=='bookmarks'">
+                    <div class="topicshead hide">Bookmarks</div>
+                    <div class="bookmarklist-container row">
+                        <ul class="list-unstyled">
+                            <li data-ng-click="playVideoSegment($event)" data-ng-repeat="topic in currentVideoObject.bookmarkTopics" data-topic-index="{{$index}}" data-ng-class="{'active':$first}">
+                                <div class="topic-name">
+                                    {{topic.topic}}
+                                </div>
+                                <div class="topic-start-time">
+                                    {{topic.start_time | secondsToDateTime | date:'HH:mm:ss'}}
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" style="padding-right:0px;">
+                    <div id="contentinfo">
+                        <div class="col-md-12" id="content-title">
+                            <span>{{currentVideoObject.string}}</span>
+                        </div>
+                        <div class="col-md-8">
+                            <div id="contentactions" class="row">
+                                <div class='actionItem hide' data-ng-click="showActiveUserVideoAction($event)">
+                                    <div class='actCon'>
+                                    <div class='actionIcon qaicon'>
+                                    </div>
+                                    <div class='actionName'>Q & A</div>
+                                    </div>
+                                </div>
+                                <div class='actionItem hide' actDiv='shareBox' data-ng-click="showActiveUserVideoAction($event)">
+                                    <div class='actCon'>
+                                    <div class='actionIcon comicon'>
+                                    </div>
+                                    <div class='actionName'>Comments</div>
+                                    </div>
+                                </div>
+                                <div class='actionItem' actDiv='bookmarkBox' data-ng-click="showActiveUserVideoAction($event)">
+                                    <div class='actCon'>
+                                    <div class='actionIcon bookmarkicon'>
+                                    </div>
+                                    <div class='actionName'>Bookmark</div>
+                                    </div>
+                                </div>
+                                <div class='actionItem hide' actDiv='mailBox' data-ng-click="showActiveUserVideoAction($event)">
+                                    <div class='actCon'>
+                                    <div class='actionIcon mailicon'>
+                                    </div>
+                                    <div class='actionName'>Mail</div>
+                                    </div>
+                                </div>
+                                <div class='actionItem' actDiv='socialBox' data-ng-click="showActiveUserVideoAction($event)">
+                                    <div class='actCon'>
+                                    <div class='actionIcon shareicon'>
+                                    </div>
+                                    <div class='actionName'>Share</div>
+                                    </div>
+                                </div>
+                                <div id="more-stats" class="actionItem" data-ng-if="currentVideoObject.topicinfo.length > 0">
+                                    <div id="more-info-btn" data-ng-mouseover="showPopover($event)" data-ng-mouseout="hidePopover($event)" data-trigger="manual" data-toggle="popover" data-placement="bottom" title="Content Stats" data-html="true" data-content='<div class="row"><div class="col-md-12" id="content-stats"><div class="row"><div class="col-md-12"><div>Curator: <span class="pull-right" id="content-shared-by">{{(currentVideoObject.curatorName || currentVideoObject.curatorname).split(" ")[0]}}</span></div></div><div class="col-md-12"><span id="content-views">{{currentVideoObject.numofviews | number}}</span>&nbsp;<span class="glyphicon glyphicon-eye-open"></span></div></div></div></div>'>
+                                        <span class="glyphicon glyphicon-info-sign"></span>&nbsp; More Info
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='shareBox actionDataContainer'>
+                        <div class='shareContainer'>
+                            <div class='inputShare'>
+                                <input type='text' placeholder='Share your Comments' />
+                            </div>
+                            <div class='buttonShare'>
+                                <input type='button' value='Post' />
+                            </div>
+                        </div>
+                    </div>
+                    <div class='bookmarkBox actionDataContainer'>
+                        <div class='bookmarkContainer'>
+                            <div data-ng-if="loginUser">
+                                <div>
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-8">
+                            <!--
+                                                <div class="text-default">My Topics</div>
+                            -->
+                                                <div class="table-scroll-container">
+                                                    <table id="video-bookmark-table" class="table table-bordered table-hover table-striped table-condensed topic-table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="hide"></th>
+                                                                <th class="new-topic-icon"><span data-ng-click="addNewTopicRow($event)" class="glyphicon glyphicon-plus"></span>&nbsp;Notes</th>
+                                                                <th>Start</th>
+                                                                <th class="hide">End</th>
+                                                                <th>&nbsp;</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr class="readOnlyRow dummyRow">
+                                                                <td class="new-topic-icon topic-row hide" data-ng-click="addNewTopicRow($event)">
+                                                                    <span class="glyphicon glyphicon-plus"></span>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="topic-text"></span>
+                                                                </td>
+                                                                <td>
+                                                                    <span><a class="topic-start"></a></span>
+                                                                </td>
+                                                                <td class="hide">
+                                                                    <span><a class="topic-end"></a></span>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="btn-group btn-group-xs">
+                                                                        <button data-ng-click="addNewTopicRow($event)" class="btn btn-sm btn-default hide" title="Add topic below">
+                                                                            <span class="glyphicon glyphicon-plus glyphicon-multi new-topic-icon topic-row"></span>
+                                                                        </button>
+                                                                        <button data-ng-click="editTopicRow($event)" data-title="Edit" data-toggle="tooltip" data-placement="bottom" class="btn btn-sm btn-default">
+                                                                            <span class="glyphicon glyphicon-pencil glyphicon-multi edit-topic-row"></span>
+                                                                        </button>
+                                                                        <button data-ng-click="removeTopicRow($event)" data-title="Delete" data-toggle="tooltip" data-placement="bottom" class="btn btn-sm btn-danger">
+                                                                            <span class="glyphicon glyphicon-remove glyphicon-multi remove-topic-row"></span>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="inputRow dummyRow">
+                                                                <td class="hide">
+                                                                    <span class="glyphicon glyphicon-remove undo-new-topic" data-ng-click="cancelTopicAdd($event)"></span>
+                                                                </td>
+                                                                <td>
+                                                                    <textarea class="topic-text-input" placeholder="Add some notes">Sample Note</textarea>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="hide">
+                                                                        <span class="glyphicon glyphicon-chevron-left time-shift left-shift"></span>
+                                                                        <span><input type="number" min="0" class="topics-time-input topic-start-time" data-ng-model="currentVideoTime"/></span>
+                                                                        <span class="glyphicon glyphicon-chevron-right time-shift right-shift"></span>
+                                                                    </div>
+                                                                    <div class="hide">
+                                                                        <a data-title="Update current video position" class='currentPTSInput' data-toggle="tooltip" data-placement="bottom" data-ng-click="bindcurrentPTSTimeInput($event)">Update Time</a>
+                                                                    </div>
+                                                                    <div class="current-video-time">
+                                                                        <span><a class="topic-start"></a></span>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="hide">
+                                                                    <div>
+                                                                        <span class="glyphicon glyphicon-chevron-left time-shift left-shift"></span>
+                                                                        <span><input type="number" min="0" class="topics-time-input topic-end-time" /></span>
+                                                                        <span class="glyphicon glyphicon-chevron-right time-shift right-shift"></span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a class='currentPTSInput' data-ng-click="bindcurrentPTSTimeInput($event)">Update Time</a>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="btn-group btn-group-sm">
+                                                                        <button class="btn btn-xs btn-default save-topic-row" data-toggle="tooltip" data-placement="bottom" data-title="Save" data-ng-click="saveTopicRow($event)">
+                                                                            <span class="glyphicon glyphicon-ok"></span>
+                                                                        </button>
+                                                                        <button data-toggle="tooltip" data-title="Cancel" data-placement="bottom" class="btn btn-xs btn-default undo-new-topic"  data-ng-click="cancelTopicAdd($event)">
+                                                                            <span class="glyphicon glyphicon-remove"></span>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="text-default hide">Title</div>
+                                                <div class="form-horizontal hide">
+                                                    <div class="form-group">
+                                                        <div class="col-md-12">
+                                                            <input type="text" id="bookmarks-title" value="{{currentVideoObject.string}}"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="text-default hide">Points to remember</div>
+                                                <div class="form-horizontal hide">
+                                                    <div class="form-group">
+                                                        <div class="col-md-12">
+                                                            <textarea rows="2" id="bookmark-ptremember"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8 text-center">
+                                                    <div class="row">
+                                                        <p class=" col-md-12">
+                                                            <button data-title="Save this video and bookmarks to my collection." data-toggle="tooltip" id="save-bookmark" class="btn btn-default btn-block" data-ng-click="saveBookmarkData($event)">
+                                                                <span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;&nbsp;Save to My Collection
+                                                            </button>
+                                                        </p>
+                                                    </div>
+                                                    <div class="row">
+                                                        <p class=" col-md-12">
+                                                            <button id="play-bookmark" class="btn btn-default btn-block" data-ng-click="playContentThroughBookmark($event)" data-ng-show="currentVideoObject.bookmarkTopics.length">
+                                                                <span class="glyphicon glyphicon-play"></span>&nbsp;&nbsp;Play Bookmarks
+                                                            </button>
+                                                        </p>
+                                                    </div>
+                                                    <div class="row">
+                                                        <p class=" col-md-12">
+                                                            <input type="button" id="mail-bookmark" class="btn btn-primary btn-block hide" value="Mail" />
+                                                        </p>
+                                                    </div>
+                                                    <div class="row">
+                                                        <p class=" col-md-12">
+                                                            <input type="button" id="share-bookmark" class="btn btn-primary btn-block hide" value="Share" />
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default" data-ng-if="!loginUser">
+                                <div class="panel-body">
+                                    <div class="col-md-12">
+                                        <p>
+                                            Please <a class='sign-in-button btn-xs' data-toggle="modal" data-target="#sign-in-container">Sign-in</a> to use Bookmarks 
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='mailBox actionDataContainer'>
+                        <div class='mailContainer'>
+                            <form>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <label for='mailto'>To</label>
+                                        </td>
+                                        <td>
+                                            <input type='text' id='mailto' name='mailto' value='bob@yahoo.com ; Email Address'>
+                                        </td>
+                                        <td>&nbsp;
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label for='mailsubject'>Subject</label>
+                                        </td>
+                                        <td>
+                                            <input type='text' id='mailsubject' name='mailsubject'>
+                                        </td>
+                                        <td>&nbsp;
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label for='mailvideo'>To</label>
+                                        </td>
+                                        <td>
+                                            <input type='text' id='mailvideo' class='disabledText' name='mailvideo' value='URL of this video. Non editable'>
+                                        </td>
+                                        <td>&nbsp;
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>
+                                            <textarea id='mailmessage' name='mailmessage' placeholder='Your message'></textarea>
+                                        </td>
+                                        <td>
+                                            <input type='button' class='bookmarkSubmit' value='Send' />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                    <div class='socialBox actionDataContainer'>
+                        <div class='socialContainer'>
+                            <div class='socialIcon socialIconFacebook'>
+                                <div id="fb-root"></div>
+                                <!-- Your share button code -->
+                                <div class="fb-share-button" data-href="" data-layout="button"></div>
+                            </div>
+                            <div class='socialIcon socialIconTwitter'>
+                            </div>
+                            <div class='socialIcon socialIconGoogleplus'>
+                            	<!-- Place this tag where you want the share button to render. -->
+                            </div>
+                            <div class='socialIcon socialIconBlogger'>
+                            </div>
+                            <div class='socialIcon socialIconReddit'>
+                            </div>
+                            <div class='socialIcon socialIconTumblr'>
+                            </div>
+                            <div class='socialIcon socialIconLinkedin'>
+                            </div>
+                            <div class='socialIcon socialIconPinterest'>
+                            </div>
+                            <div class='socialIcon socialIconStumbleupon'>
+                            </div>
+                            <div class='socialIcon socialIconHi5'>
+                            </div>
+                            <div class='socialIcon socialIconDigg'>
+                            </div>
+                            <div class='socialIcon socialIconYahoo'>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="viewleft" class="col-md-3 col-md-pull-9 col-sm-12 section-cover">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a class="col-md-12 section-cover tab-pane" data-target="#viewsuggestion" aria-controls="viewsuggestion" role="tab" data-toggle="tab">
+                        <span data-ng-if="urlParams.indexOf('%26bookmarkId') == -1">Search Results</span>
+                        <span data-ng-if="urlParams.indexOf('%26bookmarkId') != -1">My Collection</span>
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a class="col-md-12 section-cover tab-pane" data-target="#viewlastplayed" aria-controls="viewlastplayed" role="tab" data-toggle="tab">
+                        Recently Played
+                    </a>
+                </li>
+            </ul>
+            <div class="row">
+                <div id="viewLeftTabs" class="tab-content">
+                <div id="viewsuggestion" data-label="Search Results" class="col-md-12 section-cover tab-pane active" role="tabpanel">
+                    <div class="suggestionlist-container">
+                        <div class="row" data-ng-repeat="(key, content) in contentList.documents" data-ng-if="$index < (searchRows + listLimitStart) && $index >= listLimitStart">
+                            <div class="col-md-12">
+                                <div class="row list-item-row" data-ng-class="{'active':content.id == currentVideoObject.id}" data-vidid="{{content.id}}" data-vidsource="{{content.videoSource | videoSource}}" data-sourcevidid="{{content.videoid}}">
+                                    <a data-ng-href="view/{{urlParams.split('%26videoId%3D')[0]}}&videoId={{content.id}}&contentsrc=Youtube&sourcevidid={{content.videoid}}">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-12 list_title">
+                                                        {{content.string}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-5 col-sm-12">
+                                                    <img onload="CheckImgErr(this);" class="tn_suggestion" data-ng-src="{{content.tnurl.replace('default','mqdefault')}}">
+                                                </div>
+                                                <div class="list_credits col-md-7 col-sm-12 ">
+                                                    <div class="suggestion_item_credits">
+                                                        <span>
+                                                            <strong data-ng-if="content.category">
+                                                                {{content.category | categoryName}}
+                                                            </strong>
+                                                        </span>
+                                                        <span class="hide" data-ng-if="content.curatorName || content.curatorname">
+                                                            Curator: {{content.curatorName ||content.curatorname}}
+                                                        </span>
+                                                        <span>
+                                                            <small data-ng-if="content.numofviews">
+                                                                <strong class="glyphicon glyphicon-eye-open">&nbsp;</strong>{{content.numofviews | number}}
+                                                            </small>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="viewlastplayed" data-label="Recently Played" class="col-md-12 section-cover tab-pane" role="tabpanel">
+                    <div class="lastplayedlist-container">
+                        <div class="row" data-ng-repeat="(key,content) in recentContentList | orderObjectBy : 'timestamp' : true | limitTo : 10 : 0">
+                            <div class="col-md-12">
+                                <div class="row list-item-row" data-ng-class="{'active':content.id == currentVideoObject.id}" data-vidid="{{content.id}}" data-vidsource="{{content.videoSource | videoSource}}" data-sourcevidid="{{content.videoid}}">
+                                    <a data-ng-href="{{content.recentPlayUrl}}">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-12 list_title">
+                                                    {{content.string}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-5 col-sm-12">
+                                                    <img onload="CheckImgErr(this);" class="tn_suggestion" data-ng-src="{{content.tnurl.replace('default','mqdefault')}}">
+                                                </div>
+                                                <div class="list_credits col-md-7 col-sm-12 ">
+                                                    <div class="suggestion_item_credits">
+                                                        <span>
+                                                            <strong data-ng-if="content.category">
+                                                                {{content.category | categoryName}}
+                                                            </strong>
+                                                        </span>
+                                                        <span class="hide" data-ng-if="content.curatorName || content.curatorname">
+                                                            Curator: {{content.curatorName || content.curatorname}}
+                                                        </span>
+                                                        <span>
+                                                            <small data-ng-if="content.numofviews">
+                                                                <strong class="glyphicon glyphicon-eye-open">&nbsp;</strong>{{content.numofviews | number}}
+                                                            </small>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+
+    </div>
+</div>
