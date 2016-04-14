@@ -1,3 +1,3 @@
 <?php
-    require_once __DIR__.'/template/inventory.html';
+    require_once __DIR__.'/template/inventoryHome.html';
 ?>
