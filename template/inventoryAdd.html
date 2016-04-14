@@ -1,4 +1,4 @@
-<div class="template-container">
+<div class="template-container" data-ng-controller="productAddCtrl">
     <h3>
         Add Products
     </h3>
@@ -51,11 +51,11 @@
             <label for="pro_isbn_type">ISBN</label>
             <div class="input-group">
                 <div class="radio-control">
-                    <span class="inner-label">ISBN-10</span><input type="radio" name="pro_isbn_type" checked value="isbn_10" />
-                    <span class="inner-label">ISBN-13</span><input type="radio" name="pro_isbn_type" value="isbn_13"/>
+                    <span class="inner-label">ISBN-10</span><input type="radio" name="pro_isbn_type" value="isbn_10" data-ng-model="isbnType"/>
+                    <span class="inner-label">ISBN-13</span><input type="radio" name="pro_isbn_type" value="isbn_13" data-ng-model="isbnType"/>
                 </div>
-                <input placeholder="Enter 10 digit ISBN" type="text" accept="text/plain" id="pro_isbn_10" class="form-input" maxlength="10" name="isbn_num"> 
-                <input placeholder="Enter 13 digit ISBN" type="text" accept="text/plain" id="pro_isbn_13" class="form-input" maxlength="13" name="isbn_num"> 
+                <input placeholder="Enter 10 digit ISBN" type="text" accept="text/plain" id="pro_isbn_10" class="form-input" maxlength="10" name="isbn_num" data-ng-show="isbnType == 'isbn_10'"> 
+                <input placeholder="Enter 13 digit ISBN" type="text" accept="text/plain" id="pro_isbn_13" class="form-input" maxlength="13" name="isbn_num" data-ng-show="isbnType == 'isbn_13'"> 
             </div>
         </div>
         <div class="form-group">
@@ -95,7 +95,7 @@
                 </label>
             </div>
         </div>
-        <button type="button" class="form-button btn-success">Add</button>
-        <button type="button" class="form-button">Cancel</button>
+        <button type="button" class="form-button btn-success" data-ng-click="addProduct();">Add</button>
+        <button type="button" class="form-button" data-ng-click="cancelAddProduct();">Cancel</button>
     </form>
 </div>

@@ -17,6 +17,8 @@
                 </ul>
             </nav>
         </footer>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js" async></script>
-    </body>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+        <script type="text/javascript" src="js/app.js"></script>
+        <script type="text/javascript" src="./js/productAddController.js"></script>
+</body>
 </html>
