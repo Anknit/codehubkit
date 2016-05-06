@@ -1,0 +1,157 @@
+<div id="list" class="col-md-10 col-sm-12">
+    <div class="row">
+        <div id="listleft" class="col-md-2 col-sm-6 section-cover hidden-xs">
+            <div id="listcategories" class="row">
+                <div id="cat-filter-container" class="col-md-12">
+                    <div class="FilterHead">
+                        <strong>Result Categories</strong>
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item catfilteritem" data-ng-class="{'active': $first && catfilterapply}" data-ng-repeat="(key, value) in categoryFacets" data-catfilter="{{key}}" data-ng-if="value > 0">
+                            <span data-ng-if="$first && catfilterapply" class="maincat" >
+                                {{key | categoryName}}
+                                <span class="badge">{{value}}</span>
+                            </span>
+                            <a class="maincat" data-ng-href="{{getFacetUrl($index,key)}}" data-ng-if="!$first || ($first && !catfilterapply)" data-ng-hide="key == 'other' && $index<2 ">
+                                {{key | categoryName}}
+                                <span class="badge">{{value}}</span>
+                            </a>
+                        </li>
+                    </ul>
+    <!--
+                    <div class="catfilteritem" data-ng-repeat="(key, value) in categoryFacets" data-catfilter="{{key}}" data-ng-if="value > 0">
+                        <span data-ng-if="$first && catfilterapply" class="maincat" >
+                            {{key | categoryName}}
+                            <span class="badge">{{value}}</span>
+                        </span>
+                        <a class="maincat" data-ng-href="{{getFacetUrl($index,key)}}" data-ng-if="!$first || ($first && !catfilterapply)" data-ng-hide="key == 'other' && $index<2 ">
+                            {{key | categoryName}}
+                            <span class="badge">{{value}}</span>
+                        </a>
+                    </div>
+    -->
+                </div>
+            </div>
+            <div id="listsource" class="row">
+            </div>
+            <div id="listfilter" class="row">
+                <div class="gen-filter-container col-md-12 ">
+                    <div class="FilterHead">
+                        <strong>Filter By</strong>
+                    </div>
+                    <div class="sub-filter">
+                        <strong>Language</strong>
+                        <div class="filter-tool">
+                            <select id="language-select" data-langfilter="true" data-ng-change="filterListByLanguage()" data-ng-model="langfilter" data-ng-options="value.id as value.language for (key, value) in langFilters">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="sub-filter hide">
+                        <strong>Age</strong>
+                        <div class="filter-tool">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="age-filter" type="checkbox" value="1">
+                                    Kids
+                                </label>
+                            </div>					
+                            <div class="checkbox">
+                                <label>
+                                    <input class="age-filter" type="checkbox" value="2">
+                                    Teens
+                                </label>
+                            </div>					
+                            <div class="checkbox">
+                                <label>
+                                    <input class="age-filter" type="checkbox" value="3">
+                                    Adults
+                                </label>
+                            </div>					
+                            <div class="checkbox">
+                                <label>
+                                    <input class="age-filter" type="checkbox" value="4">
+                                    All
+                                </label>
+                            </div>					
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="listcenter" class="col-md-10 col-sm-6">
+            <div id="listContainer" class="list-group">
+                <div class="container-fluid">
+                    <div class="row ng-cloak" data-ng-repeat="(key, content) in contentList.documents" data-ng-if="$index < (searchRows + listLimitStart) && $index >= listLimitStart">
+                        <div class="col-md-12">
+                            <div class="row list-item-row" data-ng-click="openContentInfo($event)" data-vidid="{{content.id}}" data-vidsource="{{content.videoSource | videoSource}}" data-sourcevidid="{{content.videoid}}">
+                                <div class="col-md-3 col-sm-12 tn_col">
+                                    <div class="row">
+                                        <div class="col-md-12 overlay-info text-center" data-curate="{{(content.curatorname || content.curatorName).split(' ')[0]}}" data-cat="{{content.category | categoryName}}">
+                                            <img class="list_tn" onload="CheckImgErr(this);" data-ng-src="{{content.tnurl.replace('default','mqdefault')}}">
+                                            <a data-ng-href="view/{{urlParams}}&videoId={{content.id}}&contentsrc=Youtube&sourcevidid={{content.videoid}}&ref=list" class="play-icon"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-9 col-sm-12 toggle-container">
+                                    <div class="row">
+                                        <div class="col-md-12 list_title">
+                                            <a data-ng-href="view/{{urlParams}}&videoId={{content.id}}&contentsrc=Youtube&sourcevidid={{content.videoid}}&ref=list">{{content.string}}</a>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 content_credits" data-ng-if="content.topicinfo.length">
+                                            <div>
+                                                <span>{{(content.curatorname || content.curatorName).split(' ')[0]}}</span>
+                                                <span class="pull-right">&nbsp;{{content.numofviews | number}}</span>
+                                                <span class="pull-right glyphicon glyphicon-eye-open"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row hide text-right">{{content.contentScore}}</div>
+                                    <div class="content-data content-toggle row">
+                                        <div class="col-sm-12 content-desccription text-justify" data-ng-class="content.topicinfo.length > 0 ? 'col-md-8': 'col-md-12'">
+                                            <p>{{content.description}}</p>
+                                        </div>
+                                        <div class="col-md-4 col-sm-12 content-topics" data-ng-if="content.topicinfo.length">
+                                            <div class="hidden-sm hidden-xs">
+                                                <div class="text-left">
+                                                    Topics
+                                                </div>
+                                                <ol class="content-topic-list">
+                                                    <li data-ng-repeat="topic in content.topicinfo">
+                                                        <span class="hide">{{topic.start_time | secondsToDateTime | date:'HH:mm:ss'}}</span>
+                                                        <span>{{topic.topic}}</span>
+                                                    </li>
+                                                </ol>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="paginationContainer" class="text-center">
+                    <ul class="pagination" data-ng-show="Pagination['uniquePage'] > 1 && contentList.start < contentList.numFound">
+                        <li data-ng-repeat="i in DummyArray(Pagination['uniquePage']) track by $index" class="ng-cloak" data-ng-class="{'active' : Pagination.currentPage == $index+1}" data-pageindex="{{$index}}" data-ng-if="$index >= Pagination['pageStart']-1  && $index <= Pagination['pageEnd']-1" data-ng-show="(Pagination.currentPage <= 5 && $index < 10) || (Pagination.currentPage > 5 && $index >= Pagination.currentPage - 5 && $index < Pagination.currentPage + 5 )">
+                            <a data-ng-href="search/{{urlParams.split('%26start')[0]}}&start={{10*($index)}}">
+                                {{$index+1}}
+                            </a>
+                        </li>
+                    </ul>
+                    <div data-ng-if="contentList.numFound == 0 || contentList.start > contentList.numFound ">
+                        <p class="text-warning well">
+                            Sorry, no content available for your search. Try using different search keywords. 
+                        </p>
+                    </div>
+    <!--
+                    <div data-ng-if="contentList.numFound != 0  && (Pagination['uniquePage'] <= 1 || Pagination['uniquePage'] == Pagination['currentPage'])" class="text-center">
+                        <p></p>
+                        <blockqoute class="hide" data-ng-class="{'show':(Pagination['uniquePage'] <= 1 || Pagination['uniquePage'] == Pagination['currentPage'])}"><span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;That's all folks.<br>Try seraching with other keywords</blockqoute>
+                    </div>
+    -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

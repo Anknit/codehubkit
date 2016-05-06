@@ -1,0 +1,204 @@
+<div id="view" class="col-md-5 col-sm-12">
+    <div class="row">
+        <div id="viewcenter"  class="col-md-12 col-sm-12">
+            <div class="row">
+                <div id="contentplayer2" class="embed-responsive embed-responsive-16by9">
+                    <youtube-video video-id="playerVideoId" player="vidPlayerObject" id="ytplayerdiv"></youtube-video>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="curationTopics" class="col-md-7 section-cover">
+    <div class="headerFoot">
+        <div class="resultsDiv">
+        </div>
+    </div>
+    <div class='videoTimeLineCuration'>
+        <div class='videoTimeLineAction'>
+            <div class='actionButtonContainer'>
+                <div class="wishlistDiv hide" style="float:left">
+                    <a href="search/{{urlParams.split('%26videoId')[0]}}" id="curateBackToList">Back to List</a>
+                </div>
+                <button class='buttonCuration btn btn-primary' id="publish_curation" data-ng-click="final_publish($event)">
+                    Publish
+                </button>
+                <button class='buttonCuration btn btn-primary' data-ng-click="playSegments(0)">
+                    Preview
+                </button>
+                <button class='buttonCuration btn btn-primary' id="save_curation" data-ng-click="publish($event)">
+                    Save
+                </button>
+            </div>
+                <div class="table-scroll-container curationTopicsContainer">
+                    <table id="curation-topic-table" class="table table-bordered table-hover table-striped table-condensed topic-table">
+                        <thead>
+                            <tr>
+                                <th class="new-topic-icon" data-ng-click="addNewTopicRow($event)"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add</th>
+                                <th>Topic</th>
+                                <th>Start</th>
+                                <th>End</th>
+                                <th>&nbsp;&nbsp;&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="readOnlyRow dummyRow">
+                                <td class="new-topic-icon topic-row" data-ng-click="addNewTopicRow($event)">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </td>
+                                <td>
+                                    <div class="topic-text text-left"></div>
+                                </td>
+                                <td>
+                                    <span><a class="topic-start"></a></span>
+                                </td>
+                                <td>
+                                    <span><a class="topic-end"></a></span>
+                                </td>
+                                <td>
+                                    <span class="glyphicon glyphicon-pencil glyphicon-multi curation-topic-edit" data-ng-click="editTopicRow($event)"></span>
+                                    <span class="glyphicon glyphicon-play glyphicon-multi curation-topic-preview" data-ng-click="playCurationTopic($event)"></span>
+                                    <span class="glyphicon glyphicon-remove glyphicon-multi curation-topic-remove" data-ng-click="removeTopicRow($event)"></span>
+                                </td>
+                            </tr>
+                            <tr class="inputRow dummyRow">
+                                <td>
+                                    <span class="glyphicon glyphicon-remove curation-undo-new-topic" data-ng-click="cancelTopicAdd($event)"></span>
+                                </td>
+                                <td>
+                                    <textarea class="topic-text-input form-control"></textarea>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span class="glyphicon glyphicon-chevron-left time-shift left-shift"></span>
+                                        <span><input type="number" min="0" class="topics-time-input topic-start-time" /></span>
+                                        <span class="glyphicon glyphicon-chevron-right time-shift right-shift"></span>
+                                    </div>
+                                    <div>
+                                        <a class='currentPTSInput' data-ng-click="bindcurrentPTSTimeInput($event)">Update Time</a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span class="glyphicon glyphicon-chevron-left time-shift left-shift"></span>
+                                        <span><input type="number" min="0" class="topics-time-input topic-end-time" /></span>
+                                        <span class="glyphicon glyphicon-chevron-right time-shift right-shift"></span>
+                                    </div>
+                                    <div>
+                                        <a class='currentPTSInput' data-ng-click="bindcurrentPTSTimeInput($event)">Update Time</a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <input type="button" class="btn btn-default curation-topic-save" value="Done" data-ng-click="saveTopicRow($event)"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+    </div>
+</div>
+<div id="curationInformation" class="col-md-12 section-cover">
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-md-1">Title</label>
+            <div class="col-md-11">
+                <input type="text" class="form-control" id="curate_title" value/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-1">Description</label>
+            <div class="col-md-5">
+                <textarea rows="4" class="form-control" id="curate_original_description" readonly>Test description</textarea>
+            </div>
+            <label class="control-label col-md-1">Summary</label>
+            <div class="col-md-5">
+                <textarea id="curate_description" rows="4" maxlength="250" placeholder='Please provide a brief summary (max 250 characters)' class="form-control" ></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-1">Category</label>
+            <div class="col-md-2">
+                <div class="category-drop-down-curation" id="curationcategorydropdown" data-label="Choose Category"></div>
+            </div>
+            <label class="control-label col-md-1">Sub Category</label>
+            <div class="col-md-2">
+                <input type='text' class="form-control" id="curate_other_category" placeholder="Suggest new subcategory if not exist" />
+            </div>
+            <div class="col-md-6">
+                <ol class="breadcrumb" id="breadcrumbs_of_category">
+                </ol>   
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-1">Language</label>
+            <div class="col-md-2">
+                <select id="curate_language" class="form-control" data-ng-model="curation_language" data-ng-options="value.id as value.language for (key, value) in langObject">
+                </select>
+            </div>
+            <label class="control-label col-md-1">Suggested Language</label>
+            <div class="col-md-2">
+                <input type='text' data-ng-disabled="curation_language != 'other_language'" data-ng-model="curation_other_language" id="curate_other_language" placeholder="Enter other language" class="form-control" />
+            </div>
+            <label class="control-label col-md-1">Age Group</label>
+            <div class="col-md-5">
+                <select id="curate_age" class="form-control">
+                    <option value=1>Kids</option>
+                    <option value=2>Teens</option>
+                    <option value=3>Adults</option>
+                    <option value=4>All</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-1">Items Used</label>
+            <div class="col-md-4">
+                <input type='text' class="form-control" id="curate_items" data-value="" placeholder="Enter items used in video" />
+                <div id="items_list" class="add-remove-items">
+                    <ul class="list-unstyled list-inline">
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <button class="btn btn-default" type="button" id="add_item_in_list">Add</button>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-1">Keywords</label>
+            <div class="col-md-5">
+                <textarea id="curate_keywords" rows="4" placeholder='Please provide breif summary for this content' class="form-control" ></textarea>
+            </div>
+            <label class="control-label col-md-1">Specific Tags</label>
+            <div class="col-md-4">
+                <input id="curate_tags" data-value="" placeholder='Please provide breif summary for this content' class="form-control" ></input>
+                <div id="tags_list" class="add-remove-items">
+                    <ul class="list-unstyled list-inline">
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <button class="btn btn-default" type="button" id="add_item_in_tags">Add</button>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-6" data-ng-repeat="link in curationLinksInput">
+                <label class="control-label col-md-2">{{link.label}}</label>
+                <div class="col-md-4">
+                    <select class="form-control content-link-select-type" id="{{link.id}}" data-ng-model="link.modelval" data-ng-init="link.modelval = 'website'" >
+                        <option data-ng-selected="$first ? 'selected' : ''" data-ng-repeat="platform in link.socialPlatforms" value="{{platform.name}}">{{platform.value}}</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-5 other_link_container" data-ng-class="{'hide' : link.modelval != 'other'}" style="padding-left:0px">
+                            <input class="form-control curate-links-other-input" placeholder="Source Name" type="url" id="{{link.otherPlatformid}}" />
+                        </div>
+                        <div class="link_url_container" data-ng-class="{'other_curate_link_input_url' : link.modelval == 'other'}">
+                            <input class="form-control curate-links" type="url" id="content-link-1" placeholder="https://www...." />
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </form>
+</div>
