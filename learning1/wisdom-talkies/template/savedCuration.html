@@ -1,0 +1,81 @@
+<link rel="stylesheet" href='./Common/css/ui.jqgrid.css'  rel="stylesheet"/>
+<link rel="stylesheet" href='./Common/css/jqueryUI/themes/jquery-ui.css'  rel="stylesheet"/>
+<style>
+#gridpager_CurationListTable_center { width: auto !important; }
+</style>
+<div class="profileItem" data-label="My Curations" id="savedCurations">
+    <h3>
+        My Curations
+    </h3>
+    <div id="contentPANE" style="width:100%; height:80%">
+        <div id="curationListContainer" class="list-group">
+            <table class="table table-bordered convertTojqGrid ui-grid-Font clgrid" id="CurationListTable" url='./wisdom-talkies/php/userCurationData.php?request=curation_read'
+                colNames="Title,Category,Modified Date,Curation Status,Review Issue,Action" colModel='myCurationDataColModel'
+                sortBy ='publisheddate' gridComplete='myCurationDataFormatterFunction' gridWidth="0.99" gridHeight="0.90"> 
+            </table>
+            <div id="gridpager_CurationListTable"></div>
+        </div>
+        
+        <div id="delete-curation" class="modal fade" role="dialog" aria-labelledby="bsUIModal" style="display: none;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+                        <div>
+                            Delete Confirmation
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <div class="panel panel-primary hide-toggle">
+                                <div class="panel-heading">
+                                    Are you sure you want to delete this content from your curation list?
+                                </div>
+                            </div>
+                            <div class="alert alert-warning hide" id="delete-curation-message"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div>
+                            <div class="hide-toggle">
+                                <button type="button" class="btn btn-danger" id="confirm-delete-curation" data-ng-click="sendCurationDeleteRequest($event)">Delete</button>
+                                <button type="button" class="btn btn-default" id="cancel-delete-curation" data-ng-click="cancelCurationDelete($event)">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>        
+<!--
+        <div id="delete-curation" class="data-display-load">
+            <div>
+                Delete Confirmation
+            </div>
+            <div>
+                <div class="panel panel-primary hide-toggle">
+                    <div class="panel-heading">
+                        Are you sure you want to delete this content from your curation list?
+                    </div>
+                </div>
+                <div class="alert alert-warning hide" id="delete-curation-message"></div>
+            </div>
+            <div>
+                <div class="hide-toggle">
+                    <button type="button" class="btn btn-danger" id="confirm-delete-curation">Delete</button>
+                    <button type="button" class="btn btn-default" id="cancel-delete-curation">Cancel</button>
+                </div>
+            </div>
+        </div>
+-->
+    </div>
+</div>
+<!--
+<script type="text/javascript" src="./Common/js/jqueryUI/jquery-ui.custom.js"></script>
+<script type="text/javascript" src="./Common/js/jquery.jqGrid.min.js"></script>
+<script type="text/javascript" src="./Common/js/grid.locale-en.js"></script>
+<script type="text/javascript" src="./Common/js/GridRelated.js"></script>
+<script type="text/javascript" src="./Common/js/commonFunctions.js"></script>
+<script type="text/javascript" src="./wisdom-talkies/js/myCurationGridData.js"></script>
+<script type="text/javascript" src="./Common/js/renderGrid.js"></script>
+<script type="text/javascript" src="./wisdom-talkies/js/createjqgrid.js"></script>
+-->
