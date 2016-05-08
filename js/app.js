@@ -1,5 +1,5 @@
 (function () {
-    var app = angular.module('geo',[]);
+    var app = angular.module('gyaneo',[]);
     app.config(function($httpProvider) {
         $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
         var param = function(obj) {

@@ -16,6 +16,6 @@ if(isset($_GET['mode']) && $_GET['mode'] == 'inventory'){
     }
 }
 else{
-    require_once __DIR__.'/template/inventoryHome.html';
+    require_once __DIR__.'/template/home.html';
 }
 ?>

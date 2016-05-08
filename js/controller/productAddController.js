@@ -64,5 +64,5 @@
         };
     };
     productAddCtrl.$inject  =   ['$scope', '$location','$http', '$rootScope'];
-    angular.module('geo').controller('productAddCtrl', productAddCtrl);
+    angular.module('gyaneo').controller('productAddCtrl', productAddCtrl);
 }());

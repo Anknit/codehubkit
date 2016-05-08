@@ -1,0 +1,85 @@
+<div class="container">
+    <div class="section-container">
+        <h3>Browse Categories</h3>
+        <div class="row" data-ng-controller="categoryController">
+            <div class="col-xs-4 col-sm-3 col-md-2 ng-cloak" data-ng-repeat="item in productCategory track by $index">
+                <div class="product-category">
+                    <div class="thumbnail">
+<!--
+                        <img src="http://lorempixel.com/100/100/?t={{$index}}" alt="Category Thumbnail" />
+-->
+                        <div class="caption">
+                            <a><h5 class="">{{item}}</h5></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section-container">
+        <h3>Latest Additions</h3>
+        <div class="row" data-ng-controller="homeSectionController">
+            <div class="custom-hslider">
+                <div class="hslider-container">
+                    <div class="col-xs-4 col-sm-3 col-md-2 ng-cloak" data-ng-repeat="item in latestProducts">
+                        <div class="latest-addition">
+                            <div class="thumbnail">
+                                <img src="http://lorempixel.com/100/100/?t={{$index}}" alt="Latest Addition" />
+                                <div class="caption">
+                                    <a><h5 class="text-center">{{item}}</h5></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-default">Load More</button>
+            </div>
+        </div>
+    </div>
+    <div class="section-container">
+        <h3>Most Viewed</h3>
+        <div class="row" data-ng-controller="homeSectionController">
+            <div class="custom-hslider">
+                <div class="hslider-container">
+                    <div class="col-xs-4 col-sm-3 col-md-2 ng-cloak" data-ng-repeat="item in latestProducts">
+                        <div class="latest-addition">
+                            <div class="thumbnail">
+                                <img src="http://lorempixel.com/100/100/?t={{$index}}" alt="Latest Addition" />
+                                <div class="caption">
+                                    <a><h5 class="text-center">{{item}}</h5></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-default">Load More</button>
+            </div>
+        </div>
+    </div>
+    <div class="section-container">
+        <h3>Discount Offers</h3>
+        <div class="row" data-ng-controller="homeSectionController">
+            <div class="custom-hslider">
+                <div class="hslider-container">
+                    <div class="col-xs-4 col-sm-3 col-md-2 ng-cloak" data-ng-repeat="item in latestProducts">
+                        <div class="latest-addition">
+                            <div class="thumbnail">
+                                <img src="http://lorempixel.com/100/100/?t={{$index}}" alt="Latest Addition" />
+                                <div class="caption">
+                                    <a><h5 class="text-center">{{item}}</h5></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-default">Load More</button>
+            </div>
+        </div>
+    </div>
+</div>
