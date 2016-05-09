@@ -1,9 +1,30 @@
 (function () {
     var productAddCtrl  =   function ($scope, $location, $http, $rootScope) {
-        $scope.isbnType =   'isbn_10';
         $scope.ErrObj   =   {};
         $rootScope.pageTitle = 'Add product | Geo';
+
+        $scope.isbnType =   'isbn_10';
         $scope.pro_language='English';
+        $scope.pro_type = '';
+        $scope.pro_quant = '';
+        $scope.pro_price = '';
+        $scope.pro_publisher = '';
+        $scope.pro_name = '';
+        $scope.pro_desc = '';
+        $scope.pro_copyright = '';
+        $scope.pro_author = '';
+        $scope.pro_edition = '';
+        $scope.pro_condition = '';
+        $scope.pro_adult_clause = '';
+        $scope.pro_refund_clause = '';
+        $scope.pro_isbn_10 = '';
+        $scope.pro_isbn_13 = '';
+        $scope.pro_paperback = '';
+        $scope.pro_dimension_len = '';
+        $scope.pro_dimension_width = '';
+        $scope.pro_category = '';
+        $scope.pro_image = '';
+
         $scope.validateInput    =   function(){
             var response    =   true;
             return response;
