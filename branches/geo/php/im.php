@@ -184,16 +184,33 @@ function add_product($data){
 }
 
 function read_product($data){
-	$output	=	array();
-	$data	=	read_product_api($data['id']);
-	if($data){
-		$output['status']	=	true;
-		$output['data']		=	$data;
-		echo $output;
-		die();
+	$output	=	array(
+			'status'	=>	true
+	);
+	$id_of_product_to_read	=	$data['id'];
+	
+	if($id_of_product_to_read	!=	null	&&	$id_of_product_to_read	!=	''	&&	is_int($id_of_product_to_read)){
+		$read_object	= array(
+				'Table'	=>	'inventory',
+				'Fields'=>	'*',
+				'clause'=>	"id=".$id_of_product_to_read." && owner='".$_SESSION['userid']."'"
+		);
+		$read_data	=	DB_Read($read_object);
 	}
 	else{
+		$read_object	= array(
+				'Table'	=>	'inventory',
+				'Fields'=>	'*',
+				'clause'=>	"owner='test'"//.$_SESSION['userid']."'"
+		);
+		$read_data	=	DB_Read($read_object);
+	}
+	if(!$read_data){
 		$output['status']	=	false;
+	}
+	else{
+		$output['status']	=	true;
+		$output['data']		=	$read_data;
 		echo $output;
 		die();
 	}
@@ -203,14 +220,10 @@ function update_product($data){
 	$output	=	array(
 			'status'	=>	true
 	);
-	if(!isset($data['id'],$data['price'],$data['paperback'],
-			$data['publisher'],$data['language'],$data['isbn_10'],$data['isbn_13'],
-			$data['dimension'],$data['title'],$data['description'],
-			$data['copyright_date'],$data['adult_content'],$data['author'],$data['edition'],
-			$data['condition'],$data['refundable'],$data['status'],
-			$data['image1'],$data['image2'],$data['image3'],
-			$data['image4'],$data['image5'],$data['quantity'],
-			$data['product'],$data['unit'])){
+	if(!isset($data['id'],$data['price'],$data['paperback'],$data['publisher'],$data['language'],
+			$data['isbn_10'],$data['isbn_13'],$data['dimension'],$data['title'],$data['description'],
+			$data['copyright_date'],$data['adult_content'],$data['author'],$data['edition'],			$data['condition'],$data['refundable'],$data['status'],
+			$data['image'],$data['quantity'],$data['product'],$data['unit'])){
 		$output['status']	=	false;
 	}
 	
@@ -219,7 +232,7 @@ function update_product($data){
 		$quantity		=	$data['quantity'];
 		$product		=	$data['product'];
 		$unit			=	$data['unit'];
-		$owner			=	$_SESSION['userid'];
+		$owner			=	"test";//$_SESSION['userid'];
 		$price			=	$data['price'];
 		$paperback		=	htmlspecialchars($data['paperback']);
 		$publisher		=	htmlspecialchars($data['publisher']);
@@ -240,7 +253,7 @@ function update_product($data){
 		$category9		=	$data['category9'];
 		$category10		=	$data['category10'];
 		$copyright_date	=	$data['copyright_date'];
-		$date			=	now();
+		$date			=	date("Y-m-d H:i:s");
 		$adult_content	=	$data['adult_content'];
 		$author			=	htmlspecialchars($data['author']);
 		$edition		=	htmlspecialchars($data['edition']);
@@ -379,8 +392,13 @@ function update_product($data){
 				'image4'		=>	$image4,
 				'image5'		=>	$image5
 		);
-	
-		if(!update_product_api($update_product_details,$id)){
+		
+		$update_data	  =   array(
+				'Table'	=>	'inventory',
+				'Fields'=>	$update_product_details,
+				'clause'=>	"id=".$id." && owner='test'"//$_SESSION['userid']
+		);
+		if(!DB_Update($update_data)){
 			$output['status']	=	false;
 		}
 	}
