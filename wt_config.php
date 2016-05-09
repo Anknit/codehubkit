@@ -21,18 +21,6 @@ $APP_CONFIG['RPU_EVENT_LOGGING']		=	DEVELOPMENT;
 $APP_CONFIG['RPU_PERFORMANCE_LOGGING']	=	DEVELOPMENT;
 
 function get_MailConfig(){
-	
-/*
-	$config	=	array(
-		'smtpHostName'	=>	'mail.veneratech.com',
-		'smtpPort'		=>	'25',
-		'smtpUsername'	=>	'WTAdmin@veneratech.com',
-		'smtpPassword'	=>	'admin@12*',
-		'sender'		=>	'',
-	); 
-*/
-	
-
 	$config	=	array(
 			'smtpHostName'	=>	'ssl://smtp-relay.gmail.com',
 			'smtpPort'		=>	'465',

@@ -35,6 +35,10 @@
             </nav>
             <nav class="pull-right">
                 <ul>
+                	<fb:login-button scope="public_profile,email" onclick="fb_login_onclick();">
+					
+					</fb:login-button>
+					<div id="ststus"></div>
                     <li>
                         Sign-in
                     </li>

@@ -42,7 +42,7 @@
                     language:$scope.pro_language,
                     title:$scope.pro_name,
                     description:$scope.pro_desc,
-                    Copyright_date:$scope.pro_copyright,
+                    copyright_date:$scope.pro_copyright,
                     author:$scope.pro_author,
                     edition:$scope.pro_edition,
                     condition:$scope.pro_condition,
@@ -54,7 +54,17 @@
                     paperback:$scope.pro_paperback,
                     dimension:$scope.pro_dimension_len+' x '+$scope.pro_dimension_width,
                     category:$scope.pro_category,
-                    image:$scope.pro_image
+                    image:$scope.pro_image,
+                    category1:"",
+                    	category2:"",
+                    		category3:"",
+                    			category4:"",
+                    				category5:"",
+                    					category6:"",
+                    						category7:"",
+                    							category8:"",
+                    								category9:"",
+                    									category10:""
                 };
                 var request =    $http({
                     method: "post",

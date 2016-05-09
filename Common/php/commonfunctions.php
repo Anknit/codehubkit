@@ -239,7 +239,7 @@ function getRemoteIPAddress(){
 /*
  * Inventory management related functions
  */
-function insert_product($product){
+function insert_product_api($product){
 	$insert_data	  =   array(
 			'Table'	=>	'inventory',
 			'Fields'=>	$product
@@ -252,7 +252,7 @@ function insert_product($product){
 	}
 }
 
-function update_product($product,$row_id_to_update){
+function update_product_api($product,$row_id_to_update){
 	$update_data	  =   array(
 			'Table'	=>	'inventory',
 			'Fields'=>	$product,
@@ -266,7 +266,7 @@ function update_product($product,$row_id_to_update){
 	}
 }
 
-function read_product($id_of_product_to_read){
+function read_product_api($id_of_product_to_read){
 	if($id_of_product_to_read	!=	null	&&	$id_of_product_to_read	!=	''	&&	is_int($id_of_product_to_read)){
 		$read_object	= array(
 				'Table'	=>	'inventory',
@@ -455,7 +455,7 @@ function read_product_review($id_of_product_to_read){
 /*
  * main functionality function like booking, deleting, sold etc
  */
-function book_product($data){
+function book_product_api($data){
 	$insert_object	=   array(
 			'Table'	=>	'transaction',
 			'Fields'=>	$data

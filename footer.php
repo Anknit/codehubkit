@@ -24,5 +24,6 @@
         <script type="application/javascript" src="js/app.js"></script>
         <script type="application/javascript" src="js/controller/productAddController.js"></script>
         <script type="application/javascript" src="js/controller/categoryController.js"></script>
+        <script type="application/javascript" src="js/fb_api.js"></script>
 </body>
 </html>
