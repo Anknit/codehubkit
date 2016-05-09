@@ -15,7 +15,7 @@
 	require_once __DIR__.'./Common/php/sessionmgr/session_manager.php';
 	/*require_once __DIR__.'./Common/php/sessionmgr/session_log.php'; */	
 
-	/* session_manager_start('get_SessionMgrConfig');
+	session_manager_start('get_SessionMgrConfig');
 	$sessionData	=	session_manager_get(array('is_login'));
 	if($sessionData['status'] !== false){
 		$sessionData['data']['is_login'] =	$sessionData['data']['is_login'] === NULL ? false :	$sessionData['data']['is_login'];
@@ -24,7 +24,7 @@
 	else{
 		define('is_login', false); //login user
 	}
-	log_the_session();
+	/*
 	
 	require_once __DIR__.'./Common/php/sso/php/sso.php';
 	require_once __DIR__.'/user_permissions.php'; */
