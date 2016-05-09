@@ -30,6 +30,6 @@
 </script>
         <div class="row">
 <?php 
-    include_once __DIR__.'/template/header.html';
+    include_once $dir.'/template/header.html';
 ?>
         </div>
