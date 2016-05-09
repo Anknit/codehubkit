@@ -1,0 +1,21 @@
+/*
+Project Name       	: 	Pulsar - Content Verification System
+File Or Class Name 	: 	pagination.css
+Description			: 	
+Copyright          	:	Copyright © 2009 - 2014 Venera Technologies.
+*/
+
+ .pg-normal {
+                color: #7680BB;
+                font-weight: bold;
+				font-size:12px;
+                text-decoration: none;    
+                cursor: pointer;    
+            }
+            .pg-selected {
+                color: black;
+				font-size:14px;
+                font-weight: bold;        
+                text-decoration: underline;
+                cursor: pointer;
+            }
