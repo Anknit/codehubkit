@@ -12,7 +12,7 @@
 
 	require_once __DIR__.'./../../commonfunctions.php';
 	
-	function sso_signin_verify($email = '', $password = '', $sso_config = ''){
+	/* function sso_signin_verify($email = '', $password = '', $sso_config = ''){
 		$output	=	array('status'	=>	false);
 		$sso_config	=	config_compliance($sso_config);
 		$__sso	=	getclassObject('_sso', $sso_config);
@@ -23,7 +23,7 @@
 			return $output;	
 			
 	}
-	
+ */	
 	function sso_google_signin($sso_idtoken = '', $sso_config = ''){
 		$output	=	array('status'	=>	false);
 		$sso_config	=	config_compliance($sso_config);
@@ -36,7 +36,7 @@
 			
 	}
 	
-	function sso_initiate_signup($email = '', $sso_config = ''){
+	/* function sso_initiate_signup($email = '', $sso_config = ''){
 		$output	=	array('status'	=>	false);
 		$sso_config	=	config_compliance($sso_config);
 		$__sso	=	getclassObject('_sso', $sso_config);
@@ -83,5 +83,5 @@
 			return $output;	
 			
 	}
-
+ */
 ?>

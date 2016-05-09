@@ -17,7 +17,6 @@ $sso_config	=	array(
 	'sso_reset_mail_subject'	=>	'Reset password link from Widom Talkies !!!',						//refers to mail subject for reseting the password
 	'sso_c_encryption_key'		=>	"09334c83bf0d34e2029f7a477cb767f4ed437c175f165e9a752a392744bf30d3",	//Encryption key for encrypting reset, signup verification links
 	'sso_mail_setting'	=>	array(
-	
 		'smtpHostName'	=>	'mail.veneratech.com',
 		'smtpPort'		=>	'25',
 		'smtpUsername'	=>	'vaibhav.singhal@veneratech.com',
@@ -26,7 +25,6 @@ $sso_config	=	array(
 	
 	),
 	'sso_database_setting'	=>	array(	// The database must have a table 'userinfo', 'reset_link', 'verify_link'
-	
 		'source'	=> '',
 		'host'		=>	'localhost',
 		'port'		=>	'3306',

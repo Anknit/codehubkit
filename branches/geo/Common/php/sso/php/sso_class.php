@@ -8,7 +8,6 @@ require_once __DIR__.'/encryption.php';
 require_once __DIR__.'./../../MailMgr.php';
 require_once __DIR__.'./../../ErrorHandling.php';
 require_once __DIR__.'./../../commonfunctions.php';
-/* require_once __DIR__.'./../../OperateDB/DbMgrInterface.php'; */
 
 class _sso{
 	public  $sso_init_status	=	false;
