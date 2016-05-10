@@ -1,4 +1,5 @@
 <?php
+    require_once __DIR__.'/require.php';
 ?>
 <html data-ng-app="gyaneo">
     <head>
@@ -7,9 +8,10 @@
         <meta name="description" content="Geo">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta content="html" lang="en" name="Geo">
+        <meta name="google-signin-client_id" content="<?php echo sso_gwt_browser_key;?>"><!--42338840257-9ll1lip2eqc6dg2p00ntl94njnb39d1r.apps.googleusercontent.com-->
         <title ng-bind="pageTitle">Gyaneo</title>
-        <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css" />
-        <link rel="stylesheet" type="text/css" href="css/common.css" />
+        <link rel="stylesheet" type="text/css" href="geo/css/bootstrap/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="geo/css/common.css" />
     </head>
     <body>
         <style>.ng-cloak{display:none;}</style>
@@ -35,12 +37,13 @@
             </nav>
             <nav class="pull-right">
                 <ul>
+<!--
                 	<fb:login-button scope="public_profile,email" onclick="fb_login_onclick();">
 					
 					</fb:login-button>
-					<div id="ststus"></div>
-                    <li>
-                        Sign-in
+-->
+                    <li data-ng-controller="siginmodal">
+                        <button type="button" class="btn btn-default" ng-click="open('lg')">Sign-in</button>
                     </li>
                     <li>
                         Create Account

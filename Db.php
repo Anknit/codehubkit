@@ -17,5 +17,5 @@ function get_DbConfig(){
 			);
 	return $config;
 }
-require_once __DIR__.'./Common/php/OperateDBv1/DbMgrInterface.php';
+require_once __DIR__.'./../Common/php/OperateDBv1/DbMgrInterface.php';
 ?>

@@ -1,5 +1,5 @@
 (function () {
-    var app = angular.module('gyaneo',[]);
+    var app = angular.module('gyaneo',['ngAnimate','ui.bootstrap']);
     app.config(function($httpProvider) {
         $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
         var param = function(obj) {
@@ -84,4 +84,114 @@
                 return filtered;
         };
     });
+    
+    app.controller('siginmodal', function ($scope, $uibModal, $log) {
+        $scope.animationsEnabled = true;
+        $scope.items = ['1','2'];
+        $scope.open = function (size) {
+            var modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'geo/template/signinmodal.html',
+                controller: 'signinCtrl',
+                size: size,
+            });
+            modalInstance.result.then(function () {
+            }, function () {
+            });
+        };
+        $scope.toggleAnimation = function () {
+            $scope.animationsEnabled = !$scope.animationsEnabled;
+        };
+
+    });
+
+    app.controller('signinCtrl',function($scope, $uibModalInstance){
+        sso_obj	=	new sso.app("./"+dataRequestURL);
+        
+        $scope.sign_in_reset = function(event){
+            var re1=/(.+)@(.+)\.(.+)/i;
+            var text = document.getElementById('sign-in-email').value;
+            document.getElementsByClassName("error")[0].style.display="none";
+            if(document.getElementById('sign-in-email').value=="")
+            {
+                document.getElementById('sign-in-error2').style.display="block";
+                document.getElementById('sign-in-error-message').innerHTML="Enter the Email address";
+                return;
+            }	
+            else if(!re1.test(text))
+            {
+                document.getElementById('sign-in-error-message').innerHTML="Enter valide email id";
+                document.getElementById('sign-in-error2').style.display="block";
+                return;
+            }
+            else
+            {
+                document.getElementById('loadingDiv').style.display = 'inline-block';
+                sso_obj.reset(text);
+            }
+        };
+        $scope.sign_in_submit = function (sign,event){
+            document.getElementById('sign-in-error-message').innerHTML="";
+            document.getElementById('sign-in-error2').style.display="none";
+            if(sign==0)
+            {
+                if(!validations(0))
+                {
+                    return false;
+                }
+                var email	=	document.getElementById('sign-in-email').value;
+                var pass	=	document.getElementById("sign-in-password").value;
+
+                if(pass	==	null	||	pass	==	"")
+                {
+                    document.getElementById('sign-in-error-message').innerHTML="Password cannot be blank";
+                    document.getElementById('sign-in-error2').style.display="block";
+                    return false;
+                }
+                else if(pass.length	<	6)
+                {
+                    document.getElementById('sign-in-error-message').innerHTML="Password length must be atleast 6";
+                    document.getElementById('sign-in-error2').style.display="block";
+                    return false;
+                }
+                document.getElementById('loadingDiv').style.display ='inline-block';
+                sso_obj.signin(email,pass);
+            }
+            else if(sign==1)
+            {
+                if(!validations(0))
+                {
+                    return false;
+                }
+                var email	=	document.getElementById('sign-in-email').value;
+                document.getElementById('loadingDiv').style.display = 'inline-block';
+                sso_obj.signup(email);
+
+            }
+        };
+
+        $scope.validations = function(msg){
+            var re1 = /(.+)@(.+)\.(.+)/i;
+            var text = document.getElementById('sign-in-email').value;
+            if(!re1.test(text)){
+                document.getElementById('sign-in-error-message').innerHTML="Invalid email!";
+                document.getElementById('sign-in-error2').style.display="block";
+                return 0;
+            }
+            if(msg	==	1){
+                if(document.getElementById('sign-in-password').value != document.getElementById('sign-in-confirm-password').value){
+                    document.getElementById('sign-in-error-message').innerHTML="Password do not match!";
+                    document.getElementById('sign-in-error2').style.display="block";
+                    return 0;
+                }
+                else if(!document.getElementById('sign-in-nickname').value || document.getElementById('sign-in-nickname').value==""){
+                    document.getElementById('sign-in-error-message').innerHTML	=	"Enter nickname";
+                    document.getElementById('sign-in-error2').style.display	=	"block";
+                    return 0;
+                }
+            }
+            return 1;
+        }
+    });
+
 })();
