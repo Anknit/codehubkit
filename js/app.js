@@ -107,6 +107,26 @@
 
     app.controller('signinCtrl',function($scope, $uibModalInstance){
         sso_obj	=	new sso.app("./"+dataRequestURL);
+        $scope.templateLoad = false;
+        $scope.$watch("templateLoad",function(oldvalue,newvalue){
+            if(newvalue){
+                $scope.templateLoaded();
+            }
+        });
+        
+        $scope.templateLoaded = function(){
+            gapi.load('auth2', function(){
+              // Retrieve the singleton for the GoogleAuth library and set up the client.
+                auth2 = gapi.auth2.init({
+                    client_id: '42338840257-9ll1lip2eqc6dg2p00ntl94njnb39d1r.apps.googleusercontent.com',
+                    cookiepolicy: 'single_host_origin',
+                    // Request scopes in addition to 'profile' and 'email'
+                    //scope: 'additional_scope'
+                });
+                attachSignin(document.getElementById('google-signin'));
+            });
+        };
+/*
         gapi.signin2.render('google-signin',{
             'scope': 'email',
             'width': 200,
@@ -114,6 +134,7 @@
             'longtitle': true,
             'theme': 'dark'
         });
+*/
         
         $scope.sign_in_reset = function(event){
             var re1=/(.+)@(.+)\.(.+)/i;
@@ -202,3 +223,14 @@
     });
 
 })();
+
+function attachSignin(element) {
+    console.log(element.id);
+    auth2.attachClickHandler(element, {},
+        function(googleUser) {
+          document.getElementById('name').innerText = "Signed in: " +
+              googleUser.getBasicProfile().getName();
+        }, function(error) {
+          alert(JSON.stringify(error, undefined, 2));
+        });
+  }

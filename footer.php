@@ -17,7 +17,7 @@
                 </ul>
             </nav>
         </footer>
-        <script type="text/javascript" src="https://apis.google.com/js/platform.js" async defer></script>
+        <script type="text/javascript" src="https://apis.google.com/js/api:client.js" async defer></script>
         <script type="application/javascript" src="geo/js/angular/angular.min.js"></script>
         <script type="application/javascript" src="geo/js/angular/ui-bootstrap.min.js"></script>
         <script type="application/javascript" src="geo/js/angular/angular-animate.min.js"></script>
