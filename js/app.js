@@ -107,6 +107,13 @@
 
     app.controller('signinCtrl',function($scope, $uibModalInstance){
         sso_obj	=	new sso.app("./"+dataRequestURL);
+        gapi.signin2.render('google-signin',{
+            'scope': 'email',
+            'width': 200,
+            'height': 50,
+            'longtitle': true,
+            'theme': 'dark'
+        });
         
         $scope.sign_in_reset = function(event){
             var re1=/(.+)@(.+)\.(.+)/i;
