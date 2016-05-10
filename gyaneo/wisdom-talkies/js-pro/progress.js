@@ -1,1 +1,0 @@
-function progressChange(a){var b=document.getElementById("progressBar"),c=document.getElementById("progressArea");c.style.height="3px";b.style.width=a+"%";100==a&&setTimeout(function(){c.style.height="0px";b.style.width="0%"},500)};

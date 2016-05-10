@@ -1,2 +1,0 @@
-function login(){$("#sign-in-container").css("display","block")}
-var logoutUser=function(){gapi.auth2.getAuthInstance().signOut().then(function(){console.log("User signed out.")});var a=new CommonUtils.remoteCallClass;a.requestData={request:"logout"};a.asyncPostRequest("./"+dataRequestURL,userLogoutRequestCallback)},userLogoutRequestCallback=function(a){a=JSON.parse(a);validateAppResponse(a)?location.reload():UI_alert("Error in logout")},resetSignUpOption=function(){$("#sign-in-container input").val("");sign_in()};
