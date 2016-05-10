@@ -77,12 +77,12 @@ function get_OssConfig()
 define('sso_gwt_browser_key', '42338840257-9ll1lip2eqc6dg2p00ntl94njnb39d1r.apps.googleusercontent.com');//g=google, wt=wisdomtalkies:  Browser keys (google+) for wisdom talkies client
 define('sso_gc_server_key', 'AIzaSyAD2JZzGFW3-umHb_USE0pUdkl88OxUQO0');	//Server keys (google+) for wisdom talkies server side 
 
-define('projectFolderName', 'wisdom-talkies');
+define('projectFolderName', 'geo');
 define('commonFolderName', 'Common');
 define('commonCSSFolderName', 'Common/css');
 define('commonJSFolderName', 'Common/js');
-define('projectCSSFolderName', 'wisdom-talkies/css');
-define('projectJSFolderName', 'wisdom-talkies/js');
+define('projectCSSFolderName', 'geo/css');
+define('projectJSFolderName', 'geo/js');
 define('version', 	'11');
 define('copyright', '2016 Wisdom Talkies');
 define('description_of_wisdomtalkies','WisdomTalkies is all about preserving this Wisdom and making the world happier and smarter');

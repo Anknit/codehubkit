@@ -1,5 +1,6 @@
 var sso	=	sso||{};
 
+/*
 setfbconfig('464257530407346','v2.3');
 var fbLoginResponseInfo = '';
 var loginFacebook	=	function(){
@@ -7,6 +8,7 @@ var loginFacebook	=	function(){
 		fbuserinfo('0,1');
 	}
 };
+*/
 
 sso.app	=	function(url)
 {
