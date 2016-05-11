@@ -10,8 +10,8 @@
 		<meta content="html" lang="en" name="Geo">
         <meta name="google-signin-client_id" content="<?php echo sso_gwt_browser_key;?>"><!--42338840257-9ll1lip2eqc6dg2p00ntl94njnb39d1r.apps.googleusercontent.com-->
         <title ng-bind="pageTitle">Gyaneo</title>
-        <link rel="stylesheet" type="text/css" href="geo/css/bootstrap/bootstrap.min.css" />
-        <link rel="stylesheet" type="text/css" href="geo/css/common.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/common.css" />
     </head>
     <body>
         <style>.ng-cloak{display:none;}</style>
