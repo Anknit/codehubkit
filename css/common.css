@@ -6,7 +6,7 @@ body{
     min-height:calc(100% - 60px);
     font-family:'Roboto','Arial',sans-serif;
     box-sizing: border-box;
-    word-break: break-all;
+    word-wrap: break-word;
     margin:60px 0px 0px;
     font-size:1rem;
 }
