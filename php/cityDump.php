@@ -1,0 +1,1 @@
+[{"cityId":"2","cityName":"Uttar Pradesh","status":"1"},{"cityId":"3","cityName":"Uttrakhand","status":"1"},{"cityId":"4","cityName":"Delhi","status":"1"}]
