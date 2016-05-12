@@ -1,10 +1,22 @@
-<div class="template-container container" data-ng-controller="productEditCtrl">
+<div class="template-container container-fluid" data-ng-controller="productEditCtrl">
     <h3>
         Edit Products
     </h3>
     <div class="product-list container-fluid">
-        <div class="row" data-ng-repeat="item in inventory">
-            <div class="col-xs-12">{{item.title}}</div>
+        <div class="col-xs-12 col-sm-4 col-md-3" data-ng-repeat="item in inventory">
+            <div class="row">
+                <div class="col-xs-12">
+                    <a href="#"><h4>{{item.title}}</h4></a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <img class="img-responsive" src="http://lorempixel.com/400/200/?t={{$index}}">
+                </div>
+                <div class="col-xs-8">
+                    <p>{{item.description}}</p>
+                </div>
+            </div>
         </div>
     </div>
 <!--
