@@ -4,11 +4,11 @@ if(isset($_GET['mode']) && $_GET['mode'] == 'inventory'){
         if($_GET['opt'] == 'add'){
             require_once __DIR__.'/template/inventoryAdd.html';
         }
-        if($_GET['opt'] == 'add'){
-            
+        elseif($_GET['opt'] == 'edit'){
+            require_once __DIR__.'/template/inventoryEdit.html';
         }
-        if($_GET['opt'] == 'add'){
-            
+        elseif($_GET['opt'] == 'del'){
+            require_once __DIR__.'/template/inventoryDelete.html';
         }
     }
     else{
