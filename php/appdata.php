@@ -19,5 +19,11 @@ switch($request_type){
 			echo json_encode(array('status'=>true,'data'=>array()));
 			exit();
 		}
+	case "read_product":
+		if(isset($_REQUEST['data'])){
+			$response	=	read_product($_REQUEST['data']);
+			echo json_encode(array('status'=>true,'data'=>array()));
+			exit();
+		}
 }
 ?>
