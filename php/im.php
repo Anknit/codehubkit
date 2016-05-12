@@ -193,7 +193,7 @@ function read_product($data){
 		$read_object	= array(
 				'Table'	=>	'inventory',
 				'Fields'=>	'*',
-				'clause'=>	"id=".$id_of_product_to_read." && owner='".$_SESSION['userid']."'"
+				'clause'=>	"id=".$id_of_product_to_read/* ."  && owner='".$_SESSION['userid']."'" */
 		);
 		$read_data	=	DB_Read($read_object);
 	}
