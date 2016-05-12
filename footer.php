@@ -24,7 +24,7 @@
 <!--
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
 -->
-        <script type="application/javascript" src="Common/js/sso/sso.js"></script>
+        <script type="application/javascript" src="../Common/js/sso/sso.js"></script>
         <script type="application/javascript" src="js/app.js"></script>
         <script type="application/javascript" src="js/controller/productAddController.js"></script>
         <script type="application/javascript" src="js/controller/categoryController.js"></script>
