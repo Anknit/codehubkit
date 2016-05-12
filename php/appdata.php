@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__.'./../require.php';
-require_once __DIR__.'./../Common/php/commonfunctions.php';
+require_once __DIR__.'./../../Common/php/commonfunctions.php';
 /* require_once __DIR__.'./../Common/php/openSearchServerAPI.php'; */
 /* require_once __DIR__.'/verify_ott.php'; */
 require_once __DIR__.'/contentSearchClass.php';
