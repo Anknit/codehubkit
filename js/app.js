@@ -105,7 +105,7 @@
 
     });
 
-    app.controller('signinCtrl',function($scope, $uibModalInstance){
+    app.controller('signinCtrl',function($scope, $uibModalInstance, $http){
         sso_obj	=	new sso.app("./"+dataRequestURL);
         $scope.templateLoad = false;
         $scope.$watch("templateLoad",function(oldvalue,newvalue){
@@ -190,6 +190,34 @@
 
             }
         };
+        
+        function attachSignin(element) {
+            console.log(element.id);
+            auth2.attachClickHandler(element, {},
+                function(googleUser) {
+                    var id_token	=	googleUser.getAuthResponse().id_token;
+                    var user_image	=	googleUser.getBasicProfile().getImageUrl();
+                    var request =    $http({
+                        method: "post",
+                        url: "geo/php/appdata.php",
+                        data: {
+                            request:'sso_google_signin',
+                            data:{sso_idtoken: id_token}
+                        }
+                    });
+                    request.success(
+                        function(response){
+                            if(response.status){
+                                console.log(response);
+                            }
+                            else{
+                                console.log(response);
+                            }
+                    });
+                }, function(error) {
+                  alert(JSON.stringify(error, undefined, 2));
+                });
+        }
 
         $scope.validations = function(msg){
             var re1 = /(.+)@(.+)\.(.+)/i;
@@ -216,13 +244,3 @@
     });
 
 })();
-
-function attachSignin(element) {
-    console.log(element.id);
-    auth2.attachClickHandler(element, {},
-        function(googleUser) {
-          alert("Signed in: " + googleUser.getBasicProfile().getName());
-        }, function(error) {
-          alert(JSON.stringify(error, undefined, 2));
-        });
-  }
