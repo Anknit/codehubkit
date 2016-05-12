@@ -9,7 +9,7 @@
 <?php
 function get_DbConfig(){
 	$config = array (							
-				'host'		=>	'192.168.0.215',
+				'host'		=>	'localhost',
 				'port'		=>	'3306',
 				'username'	=>	'root',
 				'password'	=>	'',
