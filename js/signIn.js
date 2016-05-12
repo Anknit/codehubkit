@@ -1,5 +1,4 @@
-function onSSOResponse(r , type)
-{
+function onSSOResponse(r , type){
 	response	=	JSON.parse(r);
 	if(response['status']	==	true)
 		{
@@ -27,8 +26,7 @@ function onSSOResponse(r , type)
 				}
 			}
 		}
-	else if(response['status']	==	false)
-		{
+	else if(response['status']	==	false){
 			$('#sign-in-error-message').html(response["error"]);
 			$('#sign-in-error2')[0].style.display="block";
 			$('#loadingDiv').css('display','none');

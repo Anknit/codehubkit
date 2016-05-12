@@ -211,7 +211,7 @@ function read_product($data){
 	else{
 		$output['status']	=	true;
 		$output['data']		=	$read_data;
-		echo json_encode($output);
+		return $output;
 		die();
 	}
 }
