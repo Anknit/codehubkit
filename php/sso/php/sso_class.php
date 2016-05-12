@@ -213,7 +213,7 @@ class _sso{
 				$read_input	=    array(
 					'Table'		=>	'userinfo',
 					'Fields'	=>	'*',
-					'clause'	=>	"emailid='$email'"
+					'clause'	=>	"username='$email'"
 				);
 				$d_data	=	$this->sso_db_handle->Read($read_input,'','','');
 				

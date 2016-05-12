@@ -1,54 +1,88 @@
 <?php
-//module library
-require_once __DIR__.'/sso_procedural_interface.php';
-require_once __DIR__.'/error_strings.php';
-
-//External dependencies
-require_once __DIR__.'./../../RPU.php';
-
-if(!isset($RPU_MAP)){
-	$RPU_MAP	=	array();
-}
-
-/*
- * 1.it checks the signin of user 
- * 2. @param email (through POST)
- * 3. @param password (through POST)
- * 4. 
-*/
-/* $RPU_MAP['sso_signin_verify']	=	array( 'sso_signin_verify', array('sso_email','sso_password')	); */
-$RPU_MAP['sso_google_signin']	=	array( 'sso_google_signin', array('sso_idtoken')	);
-/*
- * 1. It check and sends the verification mail  to the email id for signup
- * 2. @param email (through POST)
- */
-/* $RPU_MAP['sso_initiate_signup']	=	array( 'sso_initiate_signup', array('sso_email')	); */
-/*
- * 1. It check and sends the reset mail  to the email id for reset
- * 2. @param email (through POST)
- */
-/* $RPU_MAP['sso_initiate_reset']	=	array( 'sso_initiate_reset', array('sso_email')	); */
-/*
- * 1. It verifies the link for reseting password
- * 2. @param reset_pass (through GET)
- */
-/* $RPU_MAP['sso_reset_pass']		=	array( 'sso_reset_pass', array('pass','sso_password')	); */
-/*
- * 1. It verifies the link for signup
- * 2. @param sign_up_pass (through GET)
- */
-/* $RPU_MAP['sso_signuppass']		=	array( 'sso_signuppass', array('pass','sso_user_info')	); */
-
-if(!isset($APP_CONFIG) || !isset($APP_CONFIG['APP_PROCESS_REQUEST']) || $APP_CONFIG['APP_PROCESS_REQUEST'] != false){
-
-	$sso_rpu_config	=	array(
-		'config'				=>	'get_SsoConfig',
-		'error_codes'			=>	$sso_error_codes,
-		//'callback'				=>	'',
-		'send_response_indexes'	=>	array(
-			'status', 'error', 'data'
-		),
+require_once __DIR__."/sso_definitions.php";
+function sso_google_signin($token = ''){
+	$output	=	array(
+			'status'	=>	true
 	);
-	
-	RPU_ProcessRequest($sso_rpu_config);
+		
+	$g_request    =    "https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=".$token;
+
+	$options = array(
+			'http' => array(
+					'method'  => "GET",
+			),
+	);
+	$response    =    json_decode(sendExternalRequest($options, $g_request));
+
+	if($response	==	NULL || $response	==	"") {
+		$output['status']				=	false;
+		/* $output['error']				=	'sso_message5';
+		$output['error_description']	=	"sendRequest to google api failed at line no. ".__LINE__." in file ".__FILE__." content: idtoken=".$token; */
+	}
+	else {
+
+		if(isset($response->{'error_description'})) {
+			$output['status']				=	false;
+			/* $output['error']				=	'sso_message6';
+			$output['error_description']	=	'Login credentials is not obtained from youtube'."at line no. ".__LINE__." at file ".__FILE__." content: id_token:".$token." response:".$response->{'error_description'}; */
+		}
+		else if(!isset($response->{'email_verified'})	||	!$response->{'email_verified'})
+		{
+			$output['status']				=	false;
+			/* $output['error']				=	'sso_message6';
+			$output['error_description']	=	'Google Unverified email'."at line no. ".__LINE__." at file ".__FILE__." content: id_token:".$token." response:".$response->{'error_description'}; */
+		}
+		else {
+			$email	=	$response->{'email'};
+			$name	=	explode(" ",$response->{'name'});
+			
+			$read_input	=    array(
+					'Table'		=>	'userinfo',
+					'Fields'	=>	'*',
+					'clause'	=>	"username='$email'"
+			);
+			$d_data	=	DB_Read($read_input);
+
+			if(!is_array($d_data)) {	//If user doesnt exists then insert a new verified user.
+				$insert_data    =    array(
+						'Table'	=>	'userinfo',
+						'Fields'=>	array(
+								'firstname'	=>	$name[0],
+								'lastname'	=>	$name[1],
+								'username'	=>	$email,
+								'status'	=>	US_VERIFIED
+						)
+				);
+				if(!DB_Insert($insert_data))	{
+					$output['status']				=	false;
+					/* $output['error']				=	'sso_message7';
+					$output['error_description']	=	'Database DB_Insert failed at'.__LINE__." in file ".__FILE__." email: ".$email; */
+				}
+				else{
+					$read_input	=    array(
+							'Table'		=>	'userinfo',
+							'Fields'	=>	'*',
+							'clause'	=>	"username='$email'"
+					);
+					$d_data	=	DB_Read($read_input);
+					
+					$output['data']		=	array(
+							'userid'	=>	$d_data[0]['userid'],
+							'firstname'	=>	$d_data[0]['firstname'],
+							'lastname'	=>	$d_data[0]['lastname'],
+							'username'	=>	$d_data[0]['username']
+					);
+				}
+			}
+			else{
+				$output['data']		=	array(
+						'userid'	=>	$d_data[0]['userid'],
+						'firstname'	=>	$d_data[0]['firstname'],
+						'lastname'	=>	$d_data[0]['lastname'],
+						'username'	=>	$d_data[0]['username']
+				);
+			}
+		}// else error-description
+	}// successfull google login api request
+	return $output;
 }
