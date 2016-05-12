@@ -68,7 +68,7 @@
                 };
                 var request =    $http({
                     method: "post",
-                    url: "php/appdata.php",
+                    url: "geo/php/appdata.php",
                     data: {
                         request:'add_product',
                         data:postObject
