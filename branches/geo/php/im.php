@@ -7,7 +7,7 @@ function add_product($data){
 			$data['isbn_13'],$data['dimension'],$data['title'],$data['description'],$data['copyright_date'],
 			$data['adult_content'],$data['author'],$data['edition'],$data['condition'],$data['refundable'],
 			$data['image'],
-			$data['quantity'],$data['product'],$data['unit'])){
+			$data['quantity'],$data['product'],$data['unit'],$data['status'])){
 		$output['status']	=	false;
 	}
 
@@ -42,7 +42,12 @@ function add_product($data){
 		$edition		=	htmlspecialchars($data['edition']);
 		$condition		=	$data['condition'];
 		$refundable		=	$data['refundable'];
-		$status			=	P_STATUS_AVAILABLE;
+		if($data['status']	==	'5'){
+			$status			=	P_STATUS_INCOMPLETE;
+		}
+		else if($data['status']	==	'4'){
+			$status			=	P_STATUS_AVAILABLE;
+		}
 		$image			=	$data['image'];
 	}
 
@@ -188,6 +193,19 @@ function read_product($data){
 			'status'	=>	true
 	);
 	$id_of_product_to_read	=	$data['id'];
+	if(isset($data['start'])	&&	$data['start']	!=	""	&&	is_int($data['start'])){
+		$start	=	$data['start'];
+	}
+	else{
+		$start	=	"0";
+	}
+	
+	if(isset($data['count'])	&&	$data['count']	!=	""	&&	is_int($data['count'])){
+		$count	=	$data['count'];
+	}
+	else{
+		$count	=	"10";
+	}	
 	
 	if($id_of_product_to_read	!=	null	&&	$id_of_product_to_read	!=	''	&&	is_int($id_of_product_to_read)){
 		$read_object	= array(

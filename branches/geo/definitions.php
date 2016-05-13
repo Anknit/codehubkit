@@ -29,7 +29,8 @@ define('P_STATUS_BOOKED', 1);
 define('P_STATUS_SOLD', 2);
 define('P_STATUS_DELETED', 3);
 define('P_STATUS_AVAILABLE', 4);
-define('P_STATUS_ONHOLD', 5);
+define('P_STATUS_INCOMPLETE', 5);//product is saved in incomplete state to modify later
+define('P_STATUS_ONHOLD', 6);
 
 // google recaptcha secret key
 define('recaptcha_secret','6Lfh_xsTAAAAAAEKsTeP0fX1yoGc5h7cEElXn8kl');
