@@ -70,11 +70,11 @@
                     else{
                         ?>
                         
-                    <li class="hide">
+                    <li>
                         My Account
                     </li>
-                    <li class="hide">
-                        <a href="">
+                    <li>
+                        <a href="?mode=inventory">
                             Inventory
                         </a>
                     </li>
