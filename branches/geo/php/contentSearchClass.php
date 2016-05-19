@@ -1,11 +1,42 @@
 <?php
-	class ContentSearchClass {
-		private $searchOutput,$youtubeSearchApiKey,$openSearchParam,$youtubePageToken;
-		public $searchKeyword,$searchCategory,$limitCount,$startCount,$lastError;
-
+class ContentSearchClass {
+		private $isbn_key/* ,$searchOutput,$youtubeSearchApiKey,$openSearchParam,$youtubePageToken */;
+		/* public $searchKeyword,$searchCategory,$limitCount,$startCount,$lastError; */
+		
+		private function get_isbn_details_http($isbn_number){
+			$metaInfoUrl			=	"http://isbndb.com/api/v2/json/".$this->isbn_key."/books?q=".$isbn_number;
+			$isbn_metadata 			=	json_decode(file_get_contents($metaInfoUrl),true);
+			if(!isset($isbn_metadata)	||	empty($isbn_metadata)) {
+				$isbn_metadata		=	false;
+			}
+			return $isbn_metadata;
+		}
+		
+		private function get_isbn_details_database($isbn_number){
+			$metaInfoUrl			=	"http://isbndb.com/api/v2/json/".$this->isbn_key."/books?q=".$isbn_number;
+			$isbn_metadata 			=	json_decode(file_get_contents($metaInfoUrl),true);
+			return $isbn_metadata;
+		}
+		
+		public function search_isbn_details($isbn){
+			$search_output	=	array(
+					'status'	=>	true
+			);
+			$data	=	$this->get_isbn_details_http($isbn);
+			if(!empty($data['data'])){
+				$search_output['data']	=	$data;			
+			}
+			else{
+				$search_output['status']	=	false;
+			}
+			return $search_output;
+		}
+				
 		public function __construct(){
-			$this->searchKeyword 	=	null;
-			$this->searchCategory	=	null;
+			$isbn_config	=	get_IsbnConfig();
+			$this->isbn_key	=	$isbn_config['isbn_key'];
+			
+			/* $this->searchCategory	=	null;
 			$this->lastError		=	'';
 			$this->openSearchParam	=	array();
 			$this->youtubeSearchApiKey	=	sso_gc_server_key;
@@ -17,16 +48,17 @@
 			$this->openSearchParam['config']['data']['autocompletion']	=	$config['oss_auto_name'];
 			$this->openSearchParam['config']['data']['field'] 			=	$config['oss_keyword_field'];
 			$this->openSearchParam['config']['login'] 					=	$config['oss_user'];
-			$this->openSearchParam['config']['key'] 					=	$config['oss_login_key'];
+			$this->openSearchParam['config']['key'] 					=	$config['oss_login_key']; */
 		}
 		
 		public function __destruct(){
-			$this->searchKeyword 	=	null;
+			$this->isbn_key	=	null;
+			/* $this->searchKeyword 	=	null;
 			$this->searchCategory	=	null;
 			$this->limitCount		=	10;
 			$this->startCount		=	0;
 			$this->lastError		=	'';
-			$this->openSearchParam	=	array();
+			$this->openSearchParam	=	array(); */
 		}
 		
         private function getCategoriesForFilter($categoryId){

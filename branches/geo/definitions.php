@@ -2,10 +2,12 @@
 //PRODUCT TYPE DEFINITIONS(PRODUCT): P_ prefix
 define('P_BOOK', 1);
 define('P_MAGAZINE', 2);
+define('PRODUCT_TYPE',json_encode(array(P_BOOK,P_MAGAZINE)));
 
 //UNIT TYPE OF PRODUCT(UNIT):UNIT_prefix
 define('UNIT_NOS', 1);
 define('UNIT_WEIGHT', 2);
+define('UNIT_TYPE',json_encode(array(UNIT_NOS,UNIT_WEIGHT)));
 
 //LANGUAGE OF PRODUCT():LAN_prefix
 define('LAN_EN', 1);

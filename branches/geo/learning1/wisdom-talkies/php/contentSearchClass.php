@@ -1,5 +1,5 @@
 <?php
-	class ContentSearchClass {
+class ContentSearchClass {
 		private $searchOutput,$youtubeSearchApiKey,$openSearchParam,$youtubePageToken;
 		public $searchKeyword,$searchCategory,$limitCount,$startCount,$lastError;
 

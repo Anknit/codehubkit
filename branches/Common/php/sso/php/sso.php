@@ -33,8 +33,12 @@ function sso_google_signin($token = ''){
 			$output['error_description']	=	'Google Unverified email'."at line no. ".__LINE__." at file ".__FILE__." content: id_token:".$token." response:".$response->{'error_description'}; */
 		}
 		else {
-			$email	=	$response->{'email'};
-			$name	=	explode(" ",$response->{'name'});
+			$email		=	$response->{'email'};
+			$name		=	explode(" ",$response->{'name'});
+			$picture	=	false;
+			if(isset($response->{'picture'})){
+				$picture	=	$response->{'picture'};
+			}
 			
 			$read_input	=    array(
 					'Table'		=>	'userinfo',
@@ -53,6 +57,9 @@ function sso_google_signin($token = ''){
 								'status'	=>	US_VERIFIED
 						)
 				);
+				if($picture){
+					$insert_data['Fields']['image']	=	$picture;
+				}
 				if(!DB_Insert($insert_data))	{
 					$output['status']				=	false;
 					/* $output['error']				=	'sso_message7';
@@ -70,7 +77,8 @@ function sso_google_signin($token = ''){
 							'userid'	=>	$d_data[0]['userid'],
 							'firstname'	=>	$d_data[0]['firstname'],
 							'lastname'	=>	$d_data[0]['lastname'],
-							'username'	=>	$d_data[0]['username']
+							'username'	=>	$d_data[0]['username'],
+							'image'		=>	$d_data[0]['image']
 					);
 				}
 			}
@@ -79,7 +87,8 @@ function sso_google_signin($token = ''){
 						'userid'	=>	$d_data[0]['userid'],
 						'firstname'	=>	$d_data[0]['firstname'],
 						'lastname'	=>	$d_data[0]['lastname'],
-						'username'	=>	$d_data[0]['username']
+						'username'	=>	$d_data[0]['username'],
+						'image'		=>	$d_data[0]['image']
 				);
 			}
 		}// else error-description
