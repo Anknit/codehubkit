@@ -20,6 +20,12 @@
         <script type="application/javascript" src="geo/js/angular/ui-bootstrap.min.js"></script>
         <script type="application/javascript" src="geo/js/angular/angular-animate.min.js"></script>
         <script type="application/javascript" src="geo/js/app.js"></script>
+        <script>
+        <?php
+        	$definitions	=	new __definitions_class();
+        	echo "var definitions=".$definitions->definitions_for_js().";";
+        ?>
+        </script>
     </head>
     <body>
         <style>.ng-cloak{display:none;}</style>
