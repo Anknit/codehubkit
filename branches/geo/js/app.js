@@ -208,7 +208,7 @@
                     request.success(
                         function(response){
                             if(response.status){
-                                console.log(response);
+                                window.location.reload();
                             }
                             else{
                                 console.log(response);
