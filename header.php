@@ -1,5 +1,9 @@
 <?php
     require_once __DIR__.'/require.php';
+    $userlogin = false;
+    if(isset($_SESSION['userid'])){
+        $userlogin = true;
+    }
 ?>
 <html data-ng-app="gyaneo">
     <head>
@@ -41,17 +45,25 @@
             </nav>
             <nav class="pull-right">
                 <ul>
-<!--
-                	<fb:login-button scope="public_profile,email" onclick="fb_login_onclick();">
-					
-					</fb:login-button>
--->
-                    <li data-ng-controller="siginmodal">
-                        <button type="button" class="btn btn-default" ng-click="open('lg')">Sign-in</button>
-                    </li>
-                    <li>
-                        Create Account
-                    </li>
+                    <?php
+                    if(!$userLogin){
+                        ?>
+    <!--
+                        <fb:login-button scope="public_profile,email" onclick="fb_login_onclick();">
+
+                        </fb:login-button>
+    -->
+                        <li data-ng-controller="siginmodal">
+                            <button type="button" class="btn btn-default" ng-click="open('lg')">Sign-in</button>
+                        </li>
+                        <li>
+                            Create Account
+                        </li>
+                        <?php
+                    }
+                    else{
+                        ?>
+                        
                     <li class="hide">
                         My Account
                     </li>
@@ -60,21 +72,22 @@
                             Inventory
                         </a>
                     </li>
+                        <?php
+                    }
+                    ?>
                 </ul>
             </nav>
         </header>
         <div id="main" class="body-container">
-            <div class="container-fluid search-header">
+            <div class="container-fluid search-header" data-ng-controller="searchCtrl">
                 <div class="container">
                     <h3>Search for used books</h3>
                     <div class="col-xs-12 col-md-3">
-                        <select class="form-control">
-                            <option>Select City</option>
+                        <select class="form-control" data-ng-options="city as city.cityName for city in cities track by city.cityId" data-ng-model="selectedCity">
                         </select>
                     </div>
                     <div class="col-xs-12 col-md-3">
-                        <select class="form-control">
-                            <option>All Category</option>
+                        <select class="form-control" data-ng-options="category as category.catName for category in categories track by category.catId" data-ng-model="selectedCategory">
                         </select>
                     </div>
                     <div class="col-xs-12 col-md-3">

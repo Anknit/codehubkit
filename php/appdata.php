@@ -77,23 +77,24 @@ switch($request_type){
 			exit();
 		}
 	case "read_category_object":
-		$output['data']	=	"";
+		$output	=	"";
 		if(isset($_REQUEST['data'])	&&	$_REQUEST['data']['type']	==	'book'){
-			$output['data']	=	json_decode(file_get_contents(__DIR__.'/categoryBookDump.php'));
+			$output	=	json_decode(file_get_contents(__DIR__.'/categoryBookDump.php'));
 		}
 		elseif(isset($_REQUEST['data'])	&&	$_REQUEST['data']['type']	==	'magazine'){
-			$output['data']	=	json_decode(file_get_contents(__DIR__.'/categoryMagazineDump.php'));
+			$output	=	json_decode(file_get_contents(__DIR__.'/categoryMagazineDump.php'));
 		}
 		else{
-			$output['data']['book']		=	json_decode(file_get_contents(__DIR__.'/categoryBookDump.php'));
-			$output['data']['magazine']	=	json_decode(file_get_contents(__DIR__.'/categoryMagazineDump.php'));
+            $output = array();
+			$output['book']		=	json_decode(file_get_contents(__DIR__.'/categoryBookDump.php'));
+			$output['magazine']	=	json_decode(file_get_contents(__DIR__.'/categoryMagazineDump.php'));
 		}
-		echo json_encode($output);
+		echo json_encode(array('status'=>true,'data'=>$output));
 		break;
 	case "read_city_object":
-		$output['data']	=	"";
-		$output['data']	=	json_decode(file_get_contents(__DIR__.'/cityDump.php'));
-		echo json_encode($output);
+		$output	=	"";
+		$output	=	json_decode(file_get_contents(__DIR__.'/cityDump.php'));
+		echo json_encode(array('status'=>true,'data'=>$output));
 		break;
 		
 }
