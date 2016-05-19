@@ -74,6 +74,12 @@ function get_OssConfig()
 	);
 }
 
+function get_IsbnConfig(){
+	return array(
+			'isbn_key'		=>	"RSKRJTRM"
+	);
+}
+
 define('sso_gwt_browser_key', '42338840257-9ll1lip2eqc6dg2p00ntl94njnb39d1r.apps.googleusercontent.com');//g=google, wt=wisdomtalkies:  Browser keys (google+) for wisdom talkies client
 define('sso_gc_server_key', 'AIzaSyAD2JZzGFW3-umHb_USE0pUdkl88OxUQO0');	//Server keys (google+) for wisdom talkies server side 
 

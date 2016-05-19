@@ -36,6 +36,7 @@
             if($scope.validateInput()){
                 var postObject  =   {
                     product:$scope.pro_type,
+                    status:'4',
                     quantity:$scope.pro_quant,
                     price:$scope.pro_price,
                     publisher:$scope.pro_publisher,
@@ -49,6 +50,7 @@
                     adult_content:$scope.pro_adult_clause,
                     refundable:$scope.pro_refund_clause,
                     unit:'nos',
+                    isbn:$scope.pro_isbn_10,
                     isbn_10:$scope.pro_isbn_10,
                     isbn_13:$scope.pro_isbn_13,
                     paperback:$scope.pro_paperback,

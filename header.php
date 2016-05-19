@@ -1,8 +1,8 @@
 <?php
     require_once __DIR__.'/require.php';
-    $userlogin = false;
+    $userLogin = false;
     if(isset($_SESSION['userid'])){
-        $userlogin = true;
+        $userLogin = true;
     }
 ?>
 <html data-ng-app="gyaneo">

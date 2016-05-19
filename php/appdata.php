@@ -1,21 +1,20 @@
 <?php
 require_once __DIR__.'./../require.php';
 require_once __DIR__.'./../../Common/php/commonfunctions.php';
-/* require_once __DIR__.'./../Common/php/openSearchServerAPI.php'; */
-/* require_once __DIR__.'/verify_ott.php'; */
 require_once __DIR__.'/contentSearchClass.php';
 require_once __DIR__.'/appRequestClass.php';
-/* require_once __DIR__.'./../user_profile/user_profile.php'; */
 require_once __DIR__.'/im.php';
 
 if(isset($_REQUEST['request'])){
 	$request_type	=	$_REQUEST['request'];
 }
 
+$inventory_mangement_tasks	=	new inventory_management_class();
+
 switch($request_type){
 	case "add_product":
 		if(isset($_REQUEST['data'])){
-			$response	=	add_product($_REQUEST['data']);
+			$response	=	$inventory_mangement_tasks->add_product($_REQUEST['data']);
 			if($response['status']){
 				echo json_encode(array(
 						'status'	=>	$response['status'],
@@ -30,7 +29,7 @@ switch($request_type){
 		}
 	case "read_product":
 		if(isset($_REQUEST['data'])){
-			$response	=	read_product($_REQUEST['data']);
+			$response	=	$inventory_mangement_tasks->read_product($_REQUEST['data']);
 			if($response['status']){
 				echo json_encode(array(
 						'status'	=>	$response['status'],
@@ -44,7 +43,7 @@ switch($request_type){
 		}
 	case "update_product":
 		if(isset($_REQUEST['data'])){
-			$response	=	update_product($_REQUEST['data']);
+			$response	=	$inventory_mangement_tasks->update_product($_REQUEST['data']);
 			if($response['status']){
 				echo json_encode(array(
 						'status'	=>	$response['status']
@@ -65,6 +64,7 @@ switch($request_type){
 				$_SESSION['firstname']	=	$response['data']['firstname'];
 				$_SESSION['lastname']	=	$response['data']['lastname'];
 				$_SESSION['userid']		=	$response['data']['userid'];
+				$_SESSION['user_image']	=	$response['data']['image'];
 				echo json_encode(array(
 						'status'	=>	$response['status'],
 				));
@@ -97,5 +97,12 @@ switch($request_type){
 		echo json_encode(array('status'=>true,'data'=>$output));
 		break;
 		
+	default:
+		$output	=	array(
+				'status'	=>	false,
+				'data'		=>	'Unknown request type'
+		);
+		echo json_encode($output);
+		break;		
 }
 ?>
