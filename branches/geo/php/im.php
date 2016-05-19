@@ -19,6 +19,7 @@ class inventory_management_class
 			
 			if($search_result['status'])
 			{
+				$secure_id		=	bin2hex(openssl_random_pseudo_bytes(16));
 				$quantity		=	$data['quantity'];
 				$product		=	$data['product'];
 				$unit			=	$data['unit'];
@@ -46,14 +47,25 @@ class inventory_management_class
 				$edition		=	$search_result['data']['data'][0]['edition_info'];
 				$condition		=	$data['condition'];
 				$refundable		=	$data['refundable'];
-				if($data['status']	==	'5')
-				{
-					$status			=	P_STATUS_INCOMPLETE;
+				
+				if($data['status']	==	P_STATUS_AVAILABLE){
+					$available_status	=	$quantity;
+					$total_status		=	$quantity;
+					$booked_status		=	false;
+					$sold_status		=	false;
+					$incomplete_status	=	false;
+					$onhold_status		=	false;
 				}
-				else if($data['status']	==	'4')
-				{
-					$status			=	P_STATUS_AVAILABLE;
+				else if($data['status']	==	P_STATUS_INCOMPLETE){
+					$available_status	=	false;
+					$total_status		=	false;
+					$booked_status		=	false;
+					$sold_status		=	false;
+					$incomplete_status	=	$quantity;
+					$onhold_status		=	false;
+					
 				}
+										
 				$image			=	$data['image'];
 			}
 			else
@@ -100,35 +112,41 @@ class inventory_management_class
 			}
 			
 			$add_product_details	=	array(
-					'quantity'		=>	$quantity,
-					'product'		=>	$product,
-					'unit'			=>	$unit,
-					'owner'			=>	$owner,
-					'price'			=>	$price,
-					'publisher'		=>	$publisher,
-					'language'		=>	$language,
-					'isbn_10'		=>	$isbn_10,
-					'isbn_13'		=>	$isbn_13,
-					'title'			=>	$title,
-					'description'	=>	$description,
-					'category1'		=>	$category1,
-					'category2'		=>	$category2,
-					'category3'		=>	$category3,
-					'category4'		=>	$category4,
-					'category5'		=>	$category5,
-					'category6'		=>	$category6,
-					'category7'		=>	$category7,
-					'category8'		=>	$category8,
-					'category9'		=>	$category9,
-					'category10'	=>	$category10,
-					'date'			=>	$date,
-					'adult_content'	=>	$adult_content,
-					'author'		=>	$author,
-					'edition'		=>	$edition,
-					'condition'		=>	$condition,
-					'refundable'	=>	$refundable,
-					'status'		=>	$status,
-					'image1'			=>	$image
+					'product'			=>	$product,
+					'unit'				=>	$unit,
+					'owner'				=>	$owner,
+					'price'				=>	$price,
+					'publisher'			=>	$publisher,
+					'language'			=>	$language,
+					'isbn_10'			=>	$isbn_10,
+					'isbn_13'			=>	$isbn_13,
+					'title'				=>	$title,
+					'description'		=>	$description,
+					'category1'			=>	$category1,
+					'category2'			=>	$category2,
+					'category3'			=>	$category3,
+					'category4'			=>	$category4,
+					'category5'			=>	$category5,
+					'category6'			=>	$category6,
+					'category7'			=>	$category7,
+					'category8'			=>	$category8,
+					'category9'			=>	$category9,
+					'category10'		=>	$category10,
+					'date'				=>	$date,
+					'adult_content'		=>	$adult_content,
+					'author'			=>	$author,
+					'edition'			=>	$edition,
+					'condition'			=>	$condition,
+					'refundable'		=>	$refundable,
+					'status'			=>	$status,
+					'image1'			=>	$image,
+					'available_status'	=>	$available_status,
+					'total_status'		=>	$total_status,
+					'booked_status'		=>	$booked_status,
+					'sold_status'		=>	$sold_status,
+					'incomplete_status'	=>	$incomplete_status,
+					'onhold_status'		=>	$onhold_status,
+					'secure_id'			=>	$secure_id
 			);
 	
 			$insert_data	  =   array(
@@ -157,7 +175,10 @@ class inventory_management_class
 		$output	=	array(
 				'status'	=>	true
 		);
-		$id_of_product_to_read	=	$data['id'];
+		$id_of_product_to_read	=	'';
+		if(isset($data['id'])){
+			$id_of_product_to_read	=	$data['id'];
+		}
 		if(isset($data['start'])	&&	$data['start']	!=	""	&&	is_int($data['start'])){
 			$start	=	$data['start'];
 		}
@@ -204,6 +225,7 @@ class inventory_management_class
 		$output	=	array(
 				'status'	=>	true
 		);
+		$read_product_response	=	$this->read_product($data['id']);
 		if(!isset($data['id'],$data['price'],$data['isbn'],$data['condition'],$data['refundable'],$data['status'],
 				$data['image'],$data['quantity'],$data['product'],$data['unit']))
 		{
@@ -218,14 +240,6 @@ class inventory_management_class
 			$unit			=	$data['unit'];
 			$owner			=	$_SESSION['userid'];
 			$price			=	$data['price'];
-			$paperback		=	htmlspecialchars($data['paperback']);
-			$publisher		=	htmlspecialchars($data['publisher']);
-			$language		=	$data['language'];
-			$isbn_10		=	htmlspecialchars($data['isbn_10']);
-			$isbn_13		=	htmlspecialchars($data['isbn_13']);
-			$dimension		=	htmlspecialchars($data['dimension']);
-			$title			=	htmlspecialchars($data['title']);
-			$description	=	htmlspecialchars($data['description']);
 			$category1		=	$data['category1'];
 			$category2		=	$data['category2'];
 			$category3		=	$data['category3'];
@@ -236,19 +250,58 @@ class inventory_management_class
 			$category8		=	$data['category8'];
 			$category9		=	$data['category9'];
 			$category10		=	$data['category10'];
-			$copyright_date	=	$data['copyright_date'];
 			$date			=	date("Y-m-d H:i:s");
-			$adult_content	=	$data['adult_content'];
-			$author			=	htmlspecialchars($data['author']);
-			$edition		=	htmlspecialchars($data['edition']);
+			$adult_content	=	"0";
 			$condition		=	$data['condition'];
 			$refundable		=	$data['refundable'];
-			$status			=	$data['status'];
-			$image1			=	$data['image1'];
-			$image2			=	$data['image2'];
-			$image3			=	$data['image3'];
-			$image4			=	$data['image4'];
-			$image5			=	$data['image5'];
+			$image			=	$data['image'];
+			if($data['status']	==	P_STATUS_AVAILABLE){
+				if($read_product_response[0]['onhold_status']	>=	$quantity)
+				{	
+					$available_status	=	$quantity;
+					$total_status		=	'total_status';
+					$booked_status		=	'booked_status';
+					$sold_status		=	'sold_status';
+					$incomplete_status	=	'incomplete_status';
+					$onhold_status		=	'onhold_status-'.$quantity;
+				}
+				else
+				{
+					$output['status']	=	false;
+				}
+			}
+			else if($data['status']	==	P_STATUS_DELETED){
+				if($read_product_response[0]['available_status']	>=	$quantity)
+				{
+					$available_status	=	'available_status-'.$quantity;
+					$total_status		=	'total_status-'.$quantity;
+					$booked_status		=	'booked_status';
+					$sold_status		=	'sold_status';
+					$incomplete_status	=	'incomplete_status';
+					$onhold_status		=	'onhold_status';
+				}
+				else
+				{
+					$output['status']	=	false;
+				}
+					
+			}
+			else if($data['status']	==	P_STATUS_ONHOLD){
+				if($read_product_response[0]['available_status']	>=	$quantity)
+				{
+					$available_status	=	'available_status-'.$quantity;
+					$total_status		=	'total_status';
+					$booked_status		=	'booked_status';
+					$sold_status		=	'sold_statusse';
+					$incomplete_status	=	'incomplete_status';
+					$onhold_status		=	'onhold_status';
+				}
+				else
+				{
+					$output['status']	=	false;
+				}
+					
+			}
 		}
 	
 		if($output['status'])
@@ -268,12 +321,12 @@ class inventory_management_class
 				$category_data	=	DB_Read($category_object,'ASSOC','magId');
 			}
 			
-			if(	!is_int($quantity)		||	!is_int($product)			||	!in_array($product,json_decode(PRODUCT_TYPE))
+			if(	!is_int($quantity)		||	!is_int($product)						||	!in_array($product,json_decode(PRODUCT_TYPE))						
 			||	!is_int($unit)			||	!in_array($unit,json_decode(UNIT_TYPE))	||	!is_numeric($price)
-			||	!is_int($category1)		||	!is_int($category2)			||	!is_int($category3)
-			||	!is_int($category4)		||	!is_int($category5)			||	!is_int($category6)
-			||	!is_int($category7)		||	!is_int($category8)			||	!is_int($category9)
-			||	!is_bool($refundable)	||	!is_int($condition)			||	$condition	> 5
+			||	!is_int($category1)		||	!is_int($category2)						||	!is_int($category3)
+			||	!is_int($category4)		||	!is_int($category5)						||	!is_int($category6)
+			||	!is_int($category7)		||	!is_int($category8)						||	!is_int($category9)
+			||	!is_bool($refundable)	||	!is_int($condition)						||	$condition	> 5
 			||	!is_int($category10)	||	!is_int($id)
 			||	(!isset($category_object[$category1])	&&	$category1	!=	NULL)
 			||	(!isset($category_object[$category2])	&&	$category2	!=	NULL)
@@ -289,52 +342,15 @@ class inventory_management_class
 				$output['status']	=	false;
 			}
 			
-	
-			$update_product_details	=	array(
-					'quantity'		=>	$quantity,
-					'product'		=>	$product,
-					'unit'			=>	$unit,
-					'owner'			=>	$owner,
-					'price'			=>	$price,
-					'paperback'		=>	$paperback,
-					'publisher'		=>	$publisher,
-					'language'		=>	$language,
-					'isbn_10'		=>	$isbn_10,
-					'isbn_13'		=>	$isbn_13,
-					'dimension'		=>	$dimension,
-					'title'			=>	$title,
-					'description'	=>	$description,
-					'category1'		=>	$category1,
-					'category2'		=>	$category2,
-					'category3'		=>	$category3,
-					'category4'		=>	$category4,
-					'category5'		=>	$category5,
-					'category6'		=>	$category6,
-					'category7'		=>	$category7,
-					'category8'		=>	$category8,
-					'category9'		=>	$category9,
-					'category10'	=>	$category10,
-					'copyright_date'=>	$copyright_date,
-					'date'			=>	$date,
-					'adult_content'	=>	$adult_content,
-					'author'		=>	$author,
-					'edition'		=>	$edition,
-					'condition'		=>	$condition,
-					'refundable'	=>	$refundable,
-					'status'		=>	$status,
-					'image1'		=>	$image1,
-					'image2'		=>	$image2,
-					'image3'		=>	$image3,
-					'image4'		=>	$image4,
-					'image5'		=>	$image5
-			);
-	
-			$update_data	  =   array(
-					'Table'	=>	'inventory',
-					'Fields'=>	$update_product_details,
-					'clause'=>	"id=".$id." && owner='".$_SESSION['userid']."'"
-			);
-			if(!DB_Update($update_data)){
+			$update_product_details	=	'update inventory set product='.$product.'unit='.$unit.'price="'.$price.
+			'" category1='.$category1.'category2='.$category2.'category3='.$category3.
+			'category4='.$category4.'category5='.$category5.'category6='.$category6.'category7='.$category7.
+			'category8='.$category8.'category9='.$category9.'category10='.$category10.'date='.$date.
+			'adult_content='.$adult_content.'image1='.$image.'available_status='.$available_status.
+			'total_status'.$total_status.'booked_status='.$booked_status.'sold_status='.$sold_status.
+			'incomplete_status='.$incomplete_status.'onhold_status='.$onhold_status.' where id='.$id.' && owner='.$owner;
+			
+			if(!DB_QUERY($update_product_details)){
 				$output['status']	=	false;
 			}
 		}

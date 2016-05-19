@@ -13,8 +13,28 @@ class ContentSearchClass {
 		}
 		
 		private function get_isbn_details_database($isbn_number){
-			$metaInfoUrl			=	"http://isbndb.com/api/v2/json/".$this->isbn_key."/books?q=".$isbn_number;
-			$isbn_metadata 			=	json_decode(file_get_contents($metaInfoUrl),true);
+			$output	=	array('status'=>true);
+			$read_object	=	array(
+					'Table'	=>	'inventory',
+					'Fields'=>	'*'//'id,edition,title,description,isbn_10,isbn_13,publisher'
+			);
+			if(strlen($isbn_number)	==	10)
+			{
+				$read_object['Clause']	=	"isbn_10='".$isbn_number."' limit 1";
+				$isbn_metadata			=	DB_Read($read_object,'ASSOC','id');
+				$output['data']			=	$isbn_metadata;
+			}
+			elseif(strlen($isbn_number)	==	13)
+			{
+				$read_object['Clause']	=	"isbn_13='".$isbn_number."' limit 1";
+				$isbn_metadata			=	DB_Read($read_object,'ASSOC','id');
+				$output['data']			=	$isbn_metadata;
+			}
+			else
+			{
+				$output['status']	=	false;
+				$output['data']		=	"Invalid isbn number";
+			}
 			return $isbn_metadata;
 		}
 		
@@ -22,12 +42,20 @@ class ContentSearchClass {
 			$search_output	=	array(
 					'status'	=>	true
 			);
-			$data	=	$this->get_isbn_details_http($isbn);
-			if(!empty($data['data'])){
-				$search_output['data']	=	$data;			
+			$data	=	$this->get_isbn_details_database($isbn);
+			if($data['status']	&&	$data['data'])
+			{
+				$search_output['data']	=	$data;
 			}
-			else{
-				$search_output['status']	=	false;
+			else
+			{
+				$data	=	$this->get_isbn_details_http($isbn);
+				if(!empty($data['data'])){
+					$search_output['data']	=	$data;			
+				}
+				else{
+					$search_output['status']	=	false;
+				}
 			}
 			return $search_output;
 		}
