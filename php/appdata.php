@@ -97,6 +97,12 @@ switch($request_type){
 		echo json_encode(array('status'=>true,'data'=>$output));
 		break;
 		
+	case 'read_isbn_details':
+		$search_class	=	new ContentSearchClass();
+		$search_result	=	$search_class->search_isbn_details($_REQUEST['data']['isbn']);
+		echo json_encode($search_result);
+		break;
+		
 	default:
 		$output	=	array(
 				'status'	=>	false,
