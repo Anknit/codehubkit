@@ -136,6 +136,32 @@
                 <button class="btn btn-primary" data-ng-click="getIsbnBook()">Add</button>
             </div>
         </div>
-    </form>
+    </div>
+    <div class="container-fluid ng-cloak" data-ng-if="itemAddStatus == 1">
+        <table class="table table-bordered">
+            <tr>
+                <td>Book Title</td>
+                <td>{{addItemDetail.title}}</td>
+            </tr>
+            <tr>
+                <td>Author</td>
+                <td>
+                    <ul class="list-unstyled">
+                        <li data-ng-repeat="author in addItemDetail.author_data">
+                        {{author.name}}
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>Publisher</td>
+                <td>{{addItemDetail.publisher_name}}</td>
+            </tr>
+            <tr>
+                <td>Edition</td>
+                <td>{{addItemDetail.edition_info}}</td>
+            </tr>
+        </table>
+    </div>
 </div>
 <script type="application/javascript" src="geo/js/controller/productAddController.js"></script>

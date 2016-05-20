@@ -1,9 +1,12 @@
 (function () {
     var productAddCtrl  =   function ($scope, $location, $http, $rootScope) {
+        $scope.itemAddStatus = 0;
         $scope.getIsbnBook = function(){
             var isbnNum = $scope.addProductIsbn;
+            $scope.itemAddStatus = 0;
             var error = 0;
-            if(angular.isNumber(isbnNum)){
+            $scope.addItemDetail = [];
+            if(angular.isNumber(parseInt(isbnNum))){
                 if(isbnNum.length == 10 || isbnNum.length == 13 ){
                     var request =    $http({
                         method: "get",
@@ -13,7 +16,12 @@
                     request.success(
                         function(response){
                             if(response.status){
-                                alert('ISBN fetched successfully');
+                                $scope.itemAddStatus = 1;
+                                $scope.addItemDetail = response.data;
+                            }
+                            else{
+                                $scope.itemAddStatus = 2;
+                                error = 3;
                             }
                     });
                     request.error(

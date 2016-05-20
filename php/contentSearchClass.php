@@ -86,6 +86,7 @@ class ContentSearchClass {
 				$output['status']	=	false;
 				$output['data']		=	"Invalid isbn number";
 			}
+            $output['data']['author_data'] = json_decode($output['data']['author_data']);
 			return $output;
 		}
 		
