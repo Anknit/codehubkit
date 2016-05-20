@@ -6,7 +6,7 @@ class ContentSearchClass {
 		private function get_isbn_details_http($isbn_number){
 			$metaInfoUrl			=	"http://isbndb.com/api/v2/json/".$this->isbn_key."/books?q=".$isbn_number;
 			$isbn_metadata 			=	json_decode(file_get_contents($metaInfoUrl),true);
-			if(!isset($isbn_metadata)	||	empty($isbn_metadata))
+			if(!isset($isbn_metadata)	||	empty($isbn_metadata)	||	empty($isbn_metadata['data']))
 			{
 				$isbn_metadata		=	false;
 			}
@@ -46,7 +46,18 @@ class ContentSearchClass {
 					{
 						
 					}
-				}							
+				}
+				/*
+				 * remove unk=npown values from array
+				 */		
+				$keys_to_unset	=	array("book_id","lcc_number","physical_description_text"
+					,"notes","dewey_decimal","publisher_text","title_latin","publisher_id",
+					"urls_text","awards_text","dewey_normal","title_long","marc_enc_level",
+					"subject_ids");					
+				foreach($keys_to_unset as $key)
+				{
+					unset($isbn_metadata['data'][0][$key]);
+				}
 			}
 			return $isbn_metadata;
 		}
@@ -54,7 +65,7 @@ class ContentSearchClass {
 		private function get_isbn_details_database($isbn_number){
 			$output	=	array('status'=>true);
 			$read_object	=	array(
-					'Table'	=>	'inventory',
+					'Table'	=>	'product_info',
 					'Fields'=>	'publisher as publisher_name,isbn_10 as isbn10,isbn_13 as isbn13
 					,title as title,description as summary,author as author_data,edition as edition_info'
 			);
@@ -87,7 +98,7 @@ class ContentSearchClass {
 			{
 				$search_output['data']	=	$data['data'];
 			}
-			else
+			else if($data['status']	&&	empty($data['data']))
 			{
 				$data	=	$this->get_isbn_details_http($isbn);
 				if(!empty($data['data'])){
@@ -96,6 +107,10 @@ class ContentSearchClass {
 				else{
 					$search_output['status']	=	false;
 				}
+			}
+			else
+			{
+				$search_output['status']	=	false;
 			}
 			return $search_output;
 		}
