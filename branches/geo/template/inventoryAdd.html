@@ -127,17 +127,17 @@
 </div>-->
 <div class="container" data-ng-controller="productAddCtrl">
     <h3>Add Book</h3>
-    <div class="container-fluid">
+    <div class="container-fluid add-isbn-container">
         <div class="row">
             <div class="col-xs-12 col-sm-8">
                 <input class="form-control" autofocus placeholder="Enter ISBN number" data-ng-model="addProductIsbn" />
             </div>
             <div class="col-xs-12 col-sm-4">
-                <button class="btn btn-primary" data-ng-click="getIsbnBook()">Add</button>
+                <button class="btn btn-primary" data-ng-click="getIsbnBook()">Search</button>
             </div>
         </div>
     </div>
-    <div class="container-fluid ng-cloak" data-ng-if="itemAddStatus == 1">
+    <div class="container-fluid ng-cloak isbn-detail-container" data-ng-if="itemAddStatus == 1 || itemAddStatus == 4">
         <table class="table table-bordered">
             <tr>
                 <td>Book Title</td>
@@ -162,6 +162,26 @@
                 <td>{{addItemDetail.edition_info}}</td>
             </tr>
         </table>
+        <p>
+            <button class="btn btn-success" data-ng-click="$parent.itemAddStatus = 4">Add this book</button>
+            <button class="btn btn-default" data-ng-click="$parent.addProductIsbn = '';$parent.itemAddStatus = 0">Search again</button>
+        </p>
+    </div>
+    <div class="container-fluid ng-cloak add-detail-container" data-ng-if="itemAddStatus == 4">
+        <form>
+            <div class="form-group">
+                <label for="pro_image">Add Product Image(s)</label>
+                <input type="file" required accept="image/jpeg" data-ng-model="pro_image" class="form-control" name="pro_image" multiple max="5">
+            </div>
+            <div class="form-group">
+                <label for="pro_quant">Quantity (nos.)</label>
+                <input type="number" required accept="text/plain" data-ng-model="pro_quant" class="form-control" max="10" min="1" name="pro_quant" data-ng-init="pro_quant = 1">
+            </div>
+            <div class="form-group">
+                <label for="pro_price">Price</label>
+                <input type="number" required accept="text/plain" data-ng-model="pro_price" class="form-control" max="10000" min="1" name="pro_price" data-ng-init="pro_price = 100">
+            </div>
+        </form>
     </div>
 </div>
 <script type="application/javascript" src="geo/js/controller/productAddController.js"></script>

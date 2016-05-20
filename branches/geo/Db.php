@@ -13,7 +13,7 @@ function get_DbConfig(){
 				'port'		=>	'3306',
 				'username'	=>	'root',
 				'password'	=>	'',
-				'database'	=>	'book'
+				'database'	=>	'book1'
 			);
 	return $config;
 }

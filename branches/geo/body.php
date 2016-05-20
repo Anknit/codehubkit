@@ -14,6 +14,9 @@ if(isset($_GET['mode']) && $_GET['mode'] == 'inventory'){
     else{
         require_once __DIR__.'/template/inventoryHome.html';
     }
+?>
+    <link href="geo/css/inventory.css" rel="stylesheet" />
+<?php
 }
 else{
     require_once __DIR__.'/template/home.html';
