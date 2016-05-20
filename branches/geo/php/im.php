@@ -8,7 +8,7 @@ class inventory_management_class
 		);
 		if(!isset($data['price'],$data['isbn'],$data['condition'],$data['refundable'],
 				$data['image'],$data['quantity'],$data['product'],$data['unit'],
-				$data['status'])){
+				$data['status'],$data['product_id'])){
 			$output['status']	=	false;
 		}
 	
@@ -25,12 +25,6 @@ class inventory_management_class
 				$unit			=	$data['unit'];
 				$owner			=	$_SESSION['userid'];
 				$price			=	$data['price'];
-				$publisher		=	$search_result['data']['data'][0]['publisher_name'];
-				$language		=	$search_result['data']['data'][0]['language'];
-				$isbn_10		=	$search_result['data']['data'][0]['isbn10'];
-				$isbn_13		=	$search_result['data']['data'][0]['isbn13'];
-				$title			=	$search_result['data']['data'][0]['title'];
-				$description	=	$search_result['data']['data'][0]['summary'];
 				$category1		=	$data['category1'];
 				$category2		=	$data['category2'];
 				$category3		=	$data['category3'];
@@ -43,10 +37,10 @@ class inventory_management_class
 				$category10		=	$data['category10'];
 				$date			=	date("Y-m-d H:i:s");
 				$adult_content	=	"0";
-				$author			=	$search_result['data']['data'][0]['author_data'][0]['name'];
 				$edition		=	$search_result['data']['data'][0]['edition_info'];
 				$condition		=	$data['condition'];
 				$refundable		=	$data['refundable'];
+				$product_id		=	$data['product_id'];
 				
 				if($data['status']	==	P_STATUS_AVAILABLE){
 					$available_status	=	$quantity;
@@ -74,7 +68,8 @@ class inventory_management_class
 			}	
 		}
 	
-		if($output['status']){
+		if($output['status'])
+		{
 			if($product	==	P_BOOK){
 				$category_object	=	array(
 						'Fields'=>	'catId',
@@ -90,12 +85,19 @@ class inventory_management_class
 				);
 				$category_data	=	DB_Read($category_object,'ASSOC','magId');
 			}
-			if(	!is_int($quantity)		||	!is_int($product)			||	!in_array($product,json_decode(PRODUCT_TYPE))	
+			
+			$product_info_object	=	array(
+					'Fields'=>	'id',
+					'Table'	=>	'product_info'
+			);
+			$product_info_response	=	DB_Read($product_info_object,'ASSOC','id');
+			
+			if(	!is_int($quantity)		||	!is_int($product)						||	!in_array($product,json_decode(PRODUCT_TYPE))	
 			||	!is_int($unit)			||	!in_array($unit,json_decode(UNIT_TYPE))	||	!is_numeric($price)
-			||	!is_int($category1)		||	!is_int($category2)			||	!is_int($category3)	
-			||	!is_int($category4)		||	!is_int($category5)			||	!is_int($category6)
-			||	!is_int($category7)		||	!is_int($category8)			||	!is_int($category9)
-			||	!is_bool($refundable)	||	!is_int($condition)			||	$condition	> 5
+			||	!is_int($category1)		||	!is_int($category2)						||	!is_int($category3)	
+			||	!is_int($category4)		||	!is_int($category5)						||	!is_int($category6)
+			||	!is_int($category7)		||	!is_int($category8)						||	!is_int($category9)
+			||	!is_bool($refundable)	||	!is_int($condition)						||	$condition	> 5
 			||	!is_int($category10)
 			||	(!isset($category_object[$category1])	&&	$category1	!=	NULL)
 			||	(!isset($category_object[$category2])	&&	$category2	!=	NULL)
@@ -106,7 +108,8 @@ class inventory_management_class
 			||	(!isset($category_object[$category7])	&&	$category7	!=	NULL)
 			||	(!isset($category_object[$category8])	&&	$category8	!=	NULL)
 			||	(!isset($category_object[$category9])	&&	$category9	!=	NULL)
-			||	(!isset($category_object[$category10])	&&	$category10	!=	NULL))
+			||	(!isset($category_object[$category10])	&&	$category10	!=	NULL)
+			||	!is_int($product_id) 	||	!array_key_exists($product_id, $product_info_response))
 			{
 				$output['status']	=	false;
 			}
@@ -116,12 +119,6 @@ class inventory_management_class
 					'unit'				=>	$unit,
 					'owner'				=>	$owner,
 					'price'				=>	$price,
-					'publisher'			=>	$publisher,
-					'language'			=>	$language,
-					'isbn_10'			=>	$isbn_10,
-					'isbn_13'			=>	$isbn_13,
-					'title'				=>	$title,
-					'description'		=>	$description,
 					'category1'			=>	$category1,
 					'category2'			=>	$category2,
 					'category3'			=>	$category3,
@@ -134,8 +131,6 @@ class inventory_management_class
 					'category10'		=>	$category10,
 					'date'				=>	$date,
 					'adult_content'		=>	$adult_content,
-					'author'			=>	$author,
-					'edition'			=>	$edition,
 					'condition'			=>	$condition,
 					'refundable'		=>	$refundable,
 					'status'			=>	$status,
@@ -255,7 +250,8 @@ class inventory_management_class
 			$condition		=	$data['condition'];
 			$refundable		=	$data['refundable'];
 			$image			=	$data['image'];
-			if($data['status']	==	P_STATUS_AVAILABLE){
+			if($data['status']	==	P_STATUS_AVAILABLE)
+			{
 				if($read_product_response[0]['onhold_status']	>=	$quantity)
 				{	
 					$available_status	=	$quantity;
@@ -270,7 +266,8 @@ class inventory_management_class
 					$output['status']	=	false;
 				}
 			}
-			else if($data['status']	==	P_STATUS_DELETED){
+			else if($data['status']	==	P_STATUS_DELETED)
+			{
 				if($read_product_response[0]['available_status']	>=	$quantity)
 				{
 					$available_status	=	'available_status-'.$quantity;

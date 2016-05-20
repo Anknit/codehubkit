@@ -6,8 +6,47 @@ class ContentSearchClass {
 		private function get_isbn_details_http($isbn_number){
 			$metaInfoUrl			=	"http://isbndb.com/api/v2/json/".$this->isbn_key."/books?q=".$isbn_number;
 			$isbn_metadata 			=	json_decode(file_get_contents($metaInfoUrl),true);
-			if(!isset($isbn_metadata)	||	empty($isbn_metadata)) {
+			if(!isset($isbn_metadata)	||	empty($isbn_metadata))
+			{
 				$isbn_metadata		=	false;
+			}
+			else
+			{
+				$read_object	=	array(
+						'Table'	=>	'product_info',
+						'Fields'=>	'*'
+				);
+				if(strlen($isbn_number)	==	10)
+				{
+					$read_object['clause']	=	"isbn_10='".$isbn_number."'";
+					$read_response			=	DB_Read($read_object,'ASSOC','id');
+				}
+				elseif(strlen($isbn_number)	==	13)
+				{
+					$read_object['clause']	=	"isbn_13='".$isbn_number."'";
+					$read_response			=	DB_Read($read_object,'ASSOC','id');
+				}
+				if(!$read_response)
+				{
+					$insert_object	=	array(
+							'isbn_10'		=>	$isbn_metadata['data'][0]['isbn10'],
+							'isbn_13'		=>	$isbn_metadata['data'][0]['isbn13'],
+							'publisher'		=>	$isbn_metadata['data'][0]['publisher_name'],
+							'language'		=>	$isbn_metadata['data'][0]['language'],
+							'title'			=>	$isbn_metadata['data'][0]['title'],
+							'description'	=>	$isbn_metadata['data'][0]['summary'],
+							'author'		=>	json_encode($isbn_metadata['data'][0]['author_data']),
+							'edition'		=>	$isbn_metadata['data'][0]['edition_info']
+					);
+					$insert_data	  =   array(
+							'Table'	=>	'product_info',
+							'Fields'=>	$insert_object
+					);
+					if(!DB_Insert($insert_data))
+					{
+						
+					}
+				}							
 			}
 			return $isbn_metadata;
 		}
@@ -16,17 +55,18 @@ class ContentSearchClass {
 			$output	=	array('status'=>true);
 			$read_object	=	array(
 					'Table'	=>	'inventory',
-					'Fields'=>	'*'//'id,edition,title,description,isbn_10,isbn_13,publisher'
+					'Fields'=>	'publisher as publisher_name,isbn_10 as isbn10,isbn_13 as isbn13
+					,title as title,description as summary,author as author_data,edition as edition_info'
 			);
 			if(strlen($isbn_number)	==	10)
 			{
-				$read_object['Clause']	=	"isbn_10='".$isbn_number."' limit 1";
+				$read_object['clause']	=	"isbn_10='".$isbn_number."' limit 1";
 				$isbn_metadata			=	DB_Read($read_object,'ASSOC','id');
 				$output['data']			=	$isbn_metadata;
 			}
 			elseif(strlen($isbn_number)	==	13)
 			{
-				$read_object['Clause']	=	"isbn_13='".$isbn_number."' limit 1";
+				$read_object['clause']	=	"isbn_13='".$isbn_number."' limit 1";
 				$isbn_metadata			=	DB_Read($read_object,'ASSOC','id');
 				$output['data']			=	$isbn_metadata;
 			}
@@ -35,7 +75,7 @@ class ContentSearchClass {
 				$output['status']	=	false;
 				$output['data']		=	"Invalid isbn number";
 			}
-			return $isbn_metadata;
+			return $output;
 		}
 		
 		public function search_isbn_details($isbn){
@@ -45,13 +85,13 @@ class ContentSearchClass {
 			$data	=	$this->get_isbn_details_database($isbn);
 			if($data['status']	&&	$data['data'])
 			{
-				$search_output['data']	=	$data;
+				$search_output['data']	=	$data['data'];
 			}
 			else
 			{
 				$data	=	$this->get_isbn_details_http($isbn);
 				if(!empty($data['data'])){
-					$search_output['data']	=	$data;			
+					$search_output['data']	=	$data['data'][0];			
 				}
 				else{
 					$search_output['status']	=	false;
