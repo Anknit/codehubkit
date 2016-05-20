@@ -53,7 +53,7 @@ class ContentSearchClass {
 				$keys_to_unset	=	array("book_id","lcc_number","physical_description_text"
 					,"notes","dewey_decimal","publisher_text","title_latin","publisher_id",
 					"urls_text","awards_text","dewey_normal","title_long","marc_enc_level",
-					"subject_ids");					
+					"subject_ids","isbn10","isbn13","summary");					
 				foreach($keys_to_unset as $key)
 				{
 					unset($isbn_metadata['data'][0][$key]);
@@ -66,8 +66,8 @@ class ContentSearchClass {
 			$output	=	array('status'=>true);
 			$read_object	=	array(
 					'Table'	=>	'product_info',
-					'Fields'=>	'id as product_id,publisher as publisher_name,isbn_10 as isbn10,isbn_13 as isbn13
-					,title as title,description as summary,author as author_data,edition as edition_info'
+					'Fields'=>	'id as product_id,publisher as publisher_name,title as title,
+								author as author_data,edition as edition_info'
 			);
 			if(strlen($isbn_number)	==	10)
 			{
