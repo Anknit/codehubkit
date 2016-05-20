@@ -65,6 +65,7 @@ switch($request_type){
 				$_SESSION['lastname']	=	$response['data']['lastname'];
 				$_SESSION['userid']		=	$response['data']['userid'];
 				$_SESSION['user_image']	=	$response['data']['image'];
+				$_SESSION['user_type']	=	$response['data']['user_type'];
 				echo json_encode(array(
 						'status'	=>	$response['status'],
 				));

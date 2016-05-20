@@ -40,6 +40,7 @@
                     quantity:$scope.pro_quant,
                     price:$scope.pro_price,
                     publisher:$scope.pro_publisher,
+                    product_id:'1',
                     language:$scope.pro_language,
                     title:$scope.pro_name,
                     description:$scope.pro_desc,

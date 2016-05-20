@@ -192,7 +192,6 @@
         };
         
         function attachSignin(element) {
-            console.log(element.id);
             auth2.attachClickHandler(element, {},
                 function(googleUser) {
                     var id_token	=	googleUser.getAuthResponse().id_token;
