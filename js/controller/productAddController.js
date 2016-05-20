@@ -1,6 +1,36 @@
 (function () {
     var productAddCtrl  =   function ($scope, $location, $http, $rootScope) {
-        $scope.ErrObj   =   {};
+        $scope.getIsbnBook = function(){
+            var isbnNum = $scope.addProductIsbn;
+            var error = 0;
+            if(angular.isNumber(isbnNum)){
+                if(isbnNum.length == 10 || isbnNum.length == 13 ){
+                    var request =    $http({
+                        method: "get",
+                        url: "geo/php/appdata.php?request=read_isbn_details&data[isbn]="+isbnNum,
+                        data: {}
+                    });
+                    request.success(
+                        function(response){
+                            if(response.status){
+                                alert('ISBN fetched successfully');
+                            }
+                    });
+                    request.error(
+                        function(error){
+                            console.log(error);
+                        }
+                    );
+                }
+                else{
+                    error = 2;
+                }
+            }
+            else{
+                error = 1;
+            }
+        };
+/*        $scope.ErrObj   =   {};
         $rootScope.pageTitle = 'Add product | Geo';
 
         $scope.isbnType =   'isbn_10';
@@ -95,7 +125,7 @@
             if(userConfirm){
                 window.location.reload();
             }
-        };
+        };*/
     };
     productAddCtrl.$inject  =   ['$scope', '$location','$http', '$rootScope'];
     angular.module('gyaneo').controller('productAddCtrl', productAddCtrl);

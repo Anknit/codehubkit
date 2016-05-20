@@ -1,40 +1,37 @@
-<div class="template-container">
-    <div class="table-view">
-        <div class="table-child">
-            <div class="inventory-option">
-                <div class="inventory-add-option">
-                    <h4>
-                        Add products to store.
-                    </h4>
-                    <a href="./?mode=inventory&opt=add">
-                        <button class="form-button">Add Product</button>
-                    </a>
-                </div>
-            </div>
+<div class="container" data-ng-controller="inventoryHomeCtrl">
+    <div class="row">
+        <div class="col-xs-12">
+            <a class="btn btn-default" href="./?mode=inventory&opt=add"><span class="glyphicon glyphicon-plus">&nbsp;</span>Add Book</a>
         </div>
-        <div class="table-child">
-            <div class="inventory-option">
-                <div class="inventory-edit-option">
-                    <h4>
-                        Edit products present in your store.
-                    </h4>
-                    <a href="./?mode=inventory&opt=edit">
-                        <button class="form-button">Edit Product</button>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="table-child">
-            <div class="inventory-option">
-                <div class="inventory-remove-option">
-                    <h4>
-                        Remove products from store.
-                    </h4>
-                    <a href="./?mode=inventory&opt=del">
-                        <button class="form-button">Remove Product</button>
-                    </a>
-                </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 col-md-4" data-ng-repeat="product in myProducts">
+            <div class="thumbnail">
+                <table class="product-item">
+                    <tr>
+                        <td valign="top" rowspan="2">
+                            <div class="inventory-pro-image">
+                                <img class="img-responsive" data-ng-src="{{product.imageLink}}" alt="{{product.title}}">
+                            </div>
+                        </td>
+                        <td valign="top">
+                            <div class="inventory-pro-details col-xs-12">
+                                <div>{{product.title}}</div>
+                                <small>{{product.views+' views'}}</small>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr valign="bottom">
+                        <td>
+                            <div class="inventory-pro-actions col-xs-12">
+                                <a data-ng-href="./?mode=inventory&opt=edit&product_id={{product.productId}}" class="btn btn-sm">Edit</a>
+                                <button class="btn btn-sm" data-ng-click="deleteInventoryProduct($event,$index);"><span class="glyphicon glyphicon-trash"></span><span class="text-danger">Delete</span></button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
 </div>
+<script type="application/javascript" src="geo/js/controller/inventoryHomeController.js"></script>
