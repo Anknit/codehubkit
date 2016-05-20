@@ -42,9 +42,9 @@ class ContentSearchClass {
 							'Table'	=>	'product_info',
 							'Fields'=>	$insert_object
 					);
-					if(!DB_Insert($insert_data))
-					{
-						
+					$insert_response	=	DB_Insert($insert_data);
+					if($insert_response){
+						$isbn_metadata['data'][0]['product_id']	=	$insert_response;
 					}
 				}
 				/*
@@ -66,20 +66,20 @@ class ContentSearchClass {
 			$output	=	array('status'=>true);
 			$read_object	=	array(
 					'Table'	=>	'product_info',
-					'Fields'=>	'publisher as publisher_name,isbn_10 as isbn10,isbn_13 as isbn13
+					'Fields'=>	'id as product_id,publisher as publisher_name,isbn_10 as isbn10,isbn_13 as isbn13
 					,title as title,description as summary,author as author_data,edition as edition_info'
 			);
 			if(strlen($isbn_number)	==	10)
 			{
 				$read_object['clause']	=	"isbn_10='".$isbn_number."' limit 1";
 				$isbn_metadata			=	DB_Read($read_object,'ASSOC','id');
-				$output['data']			=	$isbn_metadata;
+				$output['data']			=	$isbn_metadata[0];
 			}
 			elseif(strlen($isbn_number)	==	13)
 			{
 				$read_object['clause']	=	"isbn_13='".$isbn_number."' limit 1";
 				$isbn_metadata			=	DB_Read($read_object,'ASSOC','id');
-				$output['data']			=	$isbn_metadata;
+				$output['data']			=	$isbn_metadata[0];
 			}
 			else
 			{
