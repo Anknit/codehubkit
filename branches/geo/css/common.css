@@ -1,5 +1,5 @@
 html{
-    font-size:12px;
+    font-size:14px;
     height:100%;
 }
 body{
@@ -129,9 +129,6 @@ nav li{
     text-align: center;
     border: 1px solid #ccc;
     margin: 10px 15px;
-}
-.thumbnail{
-    border-width:0px;
 }
 .section-container{
     border-bottom: 1px solid #ccc;

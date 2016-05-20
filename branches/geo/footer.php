@@ -1,6 +1,7 @@
 <?php
 ?>
         </div>
+</div>
         <footer>
             <nav>
                 <ul>

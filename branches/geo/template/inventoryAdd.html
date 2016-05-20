@@ -1,4 +1,4 @@
-<div class="template-container" data-ng-controller="productAddCtrl">
+<!--<div class="template-container" data-ng-controller="productAddCtrl">
     <h3>
         Add Products
     </h3>
@@ -123,6 +123,19 @@
         </div>
         <button type="button" class="form-button btn-success" data-ng-click="addProduct();">Add</button>
         <button type="button" class="form-button" data-ng-click="cancelAddProduct();">Cancel</button>
+    </form>
+</div>-->
+<div class="container" data-ng-controller="productAddCtrl">
+    <h3>Add Book</h3>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8">
+                <input class="form-control" autofocus placeholder="Enter ISBN number" data-ng-model="addProductIsbn" />
+            </div>
+            <div class="col-xs-12 col-sm-4">
+                <button class="btn btn-primary" data-ng-click="getIsbnBook()">Add</button>
+            </div>
+        </div>
     </form>
 </div>
 <script type="application/javascript" src="geo/js/controller/productAddController.js"></script>
